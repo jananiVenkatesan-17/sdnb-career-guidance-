@@ -3,33 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <title>SDNB Careerflow Chatbot</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="chatbot-container">
+<div class="chat-container">
 
-    <div class="chat-header">
-      SDNB careerflow<br>chat bot
-    </div>
-
-    <div class="chat-body" id="chatBody">
-      <div class="bot-message">
-        Hello 👋 I'm your SDNB Career Guidance Assistant.
-        I'm here to help you with career choices, skills,
-        higher studies, and job guidance.
-        How can I help you today?
-      </div>
-    </div>
-
-    <div class="chat-input">
-      <input type="text" id="userInput" placeholder="Type your message..." />
-      <button class="send-btn" onclick="sendMessage()">➤</button>
-    </div>
-
+  <!-- Header -->
+  <div class="chat-header">
+    <img src="sdnb-logo.png" class="header-logo">
+    <span>SDNB Careerflow Chatbot</span>
   </div>
 
+  <!-- Chat Area -->
+  <div class="chat-messages" id="chatMessages">
+    <!-- Messages appear here -->
+  </div>
 
-  <script src="script.js"></script>
+  <!-- Language Selection -->
+  <div class="language-select" id="languageSelect">
+    <p>Select your language</p>
+    <button onclick="selectLanguage('en')">English</button>
+    <button onclick="selectLanguage('ta')">தமிழ்</button>
+  </div>
+
+  <!-- Input Area -->
+  <div class="chat-input" id="chatInput" style="display:none;">
+    <input type="text" id="userInput" placeholder="Type your message...">
+    <button onclick="sendMessage()">➤</button>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
