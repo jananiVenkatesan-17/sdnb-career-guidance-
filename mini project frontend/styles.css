@@ -1,0 +1,128 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+/* CHATBOT CARD */
+.chatbot-container {
+  width: 350px;
+  height: 500px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* HEADER */
+.chat-header {
+  background-color: #8b1c2d;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* CHAT BODY */
+.chat-body {
+  flex: 1;
+  padding: 15px;
+  font-size: 14px;
+  overflow-y: auto;
+  background-image: url("sdnb-logo.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 200px;
+}
+
+/* BOT MESSAGE */
+.bot-message {
+  background-color: #f1f1f1;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  width: fit-content;
+  max-width: 80%;
+}
+
+/* USER MESSAGE */
+.user-message {
+  background-color: #8b1c2d;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  width: fit-content;
+  max-width: 80%;
+  margin-left: auto;
+}
+
+/* INPUT BAR */
+.chat-input {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+  background-color: #fff;
+}
+
+/* INPUT FIELD */
+.chat-input input {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+/* SEND BUTTON */
+.send-btn {
+  background-color: #8b1c2d;
+  color: white;
+  border: none;
+  margin-left: 8px;
+  padding: 8px 12px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+
+.chat-messages::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 180px;
+  height: 180px;
+  background-image: url("sdnb-logo.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  opacity: 0.03;              /* VERY LIGHT */
+  filter: grayscale(100%) blur(0.5px);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.chat-messages::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 180px;
+  height: 180px;
+  background-image: url("sdnb-logo.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  opacity: 0.03;              /* VERY LIGHT */
+  filter: grayscale(100%) blur(0.5px);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
