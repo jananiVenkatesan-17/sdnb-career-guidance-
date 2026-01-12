@@ -117,6 +117,15 @@ body {
   gap: 10px;
   font-weight: bold;
   font-size: 15px;
+  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;   /* pushes logos to corners */
+  padding: 10px 14px;               /* space from edges */
+  background-color: #8b1d2c;
+  border-radius: 14px 14px 0 0;
+
+
 }
 
 /* small logo top-left */
@@ -187,4 +196,33 @@ body {
   color: white;
   cursor: pointer;
   font-size: 14px;
+}
+
+/* Bot message (left side) */
+.bot-msg {
+  max-width: 75%;
+  background: #f1f1f1;
+  padding: 10px 12px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  align-self: flex-start;
+  font-size: 14px;
+}
+
+/* User message (right side) */
+.user-msg {
+  max-width: 75%;
+  background: #8b1c2d;
+  color: white;
+  padding: 10px 12px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  align-self: flex-end;
+  font-size: 14px;
+}
+
+/* Make messages stack properly */
+.chat-messages {
+  display: flex;
+  flex-direction: column;
 }
