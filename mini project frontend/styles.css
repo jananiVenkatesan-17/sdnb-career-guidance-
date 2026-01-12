@@ -226,3 +226,35 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background: #7a1f2b;
+  position: relative;
+}
+
+.header-logo {
+  height: 40px;
+}
+
+.header-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: white;
+}
+
+.title-main {
+  font-size: 18px;   /* slightly bigger */
+  font-weight: 600;
+}
+
+
+.title-sub {
+  font-size: 13px;
+  opacity: 0.85;
+}
