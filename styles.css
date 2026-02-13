@@ -1,0 +1,173 @@
+/* ================= RESET ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* ================= PAGE ================= */
+body {
+  height: 100vh;
+  background: #f2f2f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ================= CHAT CONTAINER ================= */
+.chat-container {
+  width: 360px;
+  height: 560px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ================= HEADER ================= */
+.chat-header {
+  background-color: #7a1f2b;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+/* Logos */
+.header-logo {
+  height: 38px;
+  width: auto;
+}
+
+/* Center Title */
+.header-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: #ffffff;
+}
+
+.title-main {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.title-sub {
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+/* ================= CHAT MESSAGES ================= */
+.chat-messages {
+  flex: 1;
+  padding: 15px;
+  padding-bottom: 80px;      /* prevents input overlap */
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Watermark */
+.chat-messages::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 200px;
+  background-image: url("images/sdnb-logo.png");
+  background-repeat: repeat;
+  background-size: contain;
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+/* Keep content above watermark */
+.chat-messages * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ================= BOT MESSAGE ================= */
+.bot-msg {
+  max-width: 80%;
+  background: #f1f1f1;
+  padding: 10px 12px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  align-self: flex-start;
+  font-size: 14px;
+  white-space: pre-line;
+}
+
+/* ================= USER MESSAGE ================= */
+.user-msg {
+  max-width: 80%;
+  background: #8b1c2d;
+  color: white;
+  padding: 10px 12px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  align-self: flex-end;
+  font-size: 14px;
+}
+
+/* ================= OPTIONS ================= */
+.option-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 6px 0;
+}
+
+.option-btn {
+  background: #ffffff;
+  border: 1px solid #8b1c2d;
+  color: #8b1c2d;
+  padding: 6px 12px;
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 13px;
+  align-self: flex-start;
+}
+
+.option-btn:hover {
+  background: #8b1c2d;
+  color: white;
+}
+
+/* ================= INPUT AREA ================= */
+.chat-input {
+  height: 60px;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.chat-input button {
+  margin-left: 6px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #8b1c2d;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
