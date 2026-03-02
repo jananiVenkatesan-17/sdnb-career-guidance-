@@ -1,41 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>SDNBVC PLACIFY</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
+// ================= SEND MESSAGE =================
+function sendMessage() {
+  const input = document.getElementById("userInput");
+  const message = input.value.trim();
+  const chatMessages = document.getElementById("chatMessages");
 
-<body>
+  if (message === "") return;
 
-<div class="chat-container">
+  // Create user message
+  const userMsg = document.createElement("div");
+  userMsg.classList.add("user-msg");
+  userMsg.textContent = message;
+  chatMessages.appendChild(userMsg);
 
-  <!-- Header -->
-  <div class="chat-header">
-    <!-- Left logo -->
-    <img src="images/sdnb-logo.png" class="header-logo" alt="SDNB Logo">
+  input.value = "";
 
-    <!-- Center title -->
-    <div class="header-title">
-      <div class="title-main">SDNBVC - PLACIFY</div>
-      <div class="title-sub">Placement Guidance Assistant</div>
+  // Auto scroll
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// ================= ENTER KEY SUPPORT =================
+document.addEventListener("DOMContentLoaded", function () {
+  const input = document.getElementById("userInput");
+
+  if (input) {
+    input.addEventListener("keypress", function (e) {
+      if (e.key === "Enter") {
+        sendMessage();
+      }
+    });
+  }
+});
+
+// ================= SHOW SKILL PAGE =================
+function showSkills() {
+  const chatMessages = document.getElementById("chatMessages");
+
+  chatMessages.innerHTML = `
+    <div class="bot-msg">SKILL REQUIREMENTS</div>
+
+    <div class="bot-msg">✔ Communication Skills</div>
+    <div class="bot-msg">✔ Technical Knowledge</div>
+    <div class="bot-msg">✔ Problem Solving Ability</div>
+    <div class="bot-msg">✔ Team Work</div>
+    <div class="bot-msg">✔ Time Management</div>
+
+    <div style="margin-top:20px;">
+      <button class="option-btn" onclick="goBack()">⬅ Back</button>
     </div>
+  `;
+}
 
-    <!-- Right logo -->
-    <img src="images/58-logo.png" class="header-logo" alt="College Logo">
-  </div>
+// ================= BACK TO FRONT PAGE =================
+function goBack() {
+  const chatMessages = document.getElementById("chatMessages");
 
-  <!-- Chat Area -->
-  <div class="chat-messages" id="chatMessages"></div>
+  chatMessages.innerHTML = `
+    <div class="bot-msg">PLACEMENT TRAINING MODULES:</div>
 
-  <!-- Input Area -->
-  <div class="chat-input">
-    <input type="text" id="userInput" placeholder="Type your message..." disabled>
-    <button disabled>➤</button>
-  </div>
-
-</div>
-
-<script src="script.js"></script>
-</body>
-</html>
+    <div class="option-container">
+      <button class="option-btn">Aptitude Preparation</button>
+      <button class="option-btn">Technical Preparation</button>
+      <button class="option-btn">Interview Preparation</button>
+      <button class="option-btn">Resume Building</button>
+      <button class="option-btn">Mock Tests & GD</button>
+      <button class="option-btn" onclick="showSkills()">Skill Requirements</button>
+    </div>
+  `;
+}
