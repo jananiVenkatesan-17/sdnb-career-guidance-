@@ -1,0 +1,197 @@
+/* ================= RESET ================= */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* ================= PAGE ================= */
+body{
+  height:100vh;
+  background:#f2f2f2;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* ================= CHAT CONTAINER ================= */
+.chat-container{
+  width:420px;
+  height:650px;
+  background:#ffffff;
+  border-radius:16px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.15);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  position:relative;
+}
+
+/* ================= HEADER ================= */
+.chat-header{
+  background:#7a1f2b;
+  padding:10px 14px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:relative;
+}
+
+/* Logos */
+.header-logo{
+  height:38px;
+  width:auto;
+}
+
+/* Center Title */
+.header-title{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  text-align:center;
+  color:#ffffff;
+}
+
+.title-main{
+  font-size:18px;
+  font-weight:600;
+}
+
+.title-sub{
+  font-size:12px;
+  opacity:0.85;
+}
+
+/* ================= CHAT AREA ================= */
+.chat-messages{
+  flex:1;
+  padding:15px;
+  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+  position:relative;
+  scroll-behavior:smooth;
+}
+
+/* Watermark */
+.chat-messages::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:url("images/sdnb-logo.png");
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:70px;
+  opacity:0.05;
+  pointer-events:none;
+}
+
+/* ================= BOT MESSAGE ================= */
+.bot-msg{
+  max-width:80%;
+  background:#f1f1f1;
+  padding:10px 12px;
+  border-radius:12px;
+  margin-bottom:10px;
+  align-self:flex-start;
+  font-size:14px;
+  line-height:1.4;
+}
+
+/* ================= USER MESSAGE ================= */
+.user-msg{
+  max-width:80%;
+  background:#8b1c2d;
+  color:white;
+  padding:10px 12px;
+  border-radius:12px;
+  margin-bottom:10px;
+  align-self:flex-end;
+  font-size:14px;
+  line-height:1.4;
+}
+
+/* ================= OPTIONS ================= */
+.option-container{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  margin:6px 0;
+}
+
+.option-btn{
+  background:#ffffff;
+  border:1px solid #8b1c2d;
+  color:#8b1c2d;
+  padding:6px 12px;
+  border-radius:16px;
+  cursor:pointer;
+  font-size:13px;
+  align-self:flex-start;
+  transition:0.2s;
+}
+
+.option-btn:hover{
+  background:#8b1c2d;
+  color:white;
+}
+
+/* ================= SKILL BUTTONS ================= */
+.skill-btn{
+  display:block;
+  width:fit-content;
+  max-width:80%;
+  margin:10px 0;
+  padding:10px 15px;
+  border-radius:15px;
+  border:none;
+  background:#e6e6e6;
+  font-size:14px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.skill-btn:hover{
+  background:#dcdcdc;
+}
+
+.skill-btn.selected{
+  background:#8b1c2d;
+  color:white;
+}
+
+/* ================= INPUT AREA ================= */
+.chat-input{
+  height:60px;
+  padding:10px;
+  border-top:1px solid #ddd;
+  display:flex;
+  align-items:center;
+  background:#ffffff;
+}
+
+.chat-input input{
+  flex:1;
+  padding:8px 12px;
+  border-radius:20px;
+  border:1px solid #ccc;
+  outline:none;
+}
+
+.chat-input button{
+  margin-left:6px;
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  background:#8b1c2d;
+  color:white;
+  border:none;
+  cursor:pointer;
+}
+
+/* Prevent images stretching */
+img{
+  max-width:100%;
+  height:auto;
+}
