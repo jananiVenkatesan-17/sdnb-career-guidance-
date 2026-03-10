@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SDNBVC - PLACIFY | Course Selection</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<div class="chat-container">
+
+  <!-- HEADER -->
+  <div class="chat-header">
+    <img src="images/sdnb-logo.png" class="header-logo" alt="SDNB Logo" />
+
+    <div class="header-title">
+      <div class="title-main">SDNBVC - PLACIFY</div>
+      <div class="title-sub" id="deptTitle">Placement Training</div>
+    </div>
+
+    <img src="images/58-logo.png" class="header-logo" alt="58 Logo" />
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="chat-messages">
+
+    <div class="bot-msg">
+      <strong>Select your course to continue:</strong>
+    </div>
+
+    <!-- Course Dropdown -->
+    <div class="bot-msg">
+      <select id="courseSelect" style="width:100%; padding:10px; border-radius:10px;">
+        <option value="">Select Course</option>
+      </select>
+    </div>
+
+    <!-- Course Info -->
+    <div class="bot-msg" id="courseInfo" style="display:none;"></div>
+
+    <!-- Buttons -->
+    <div style="margin-top:12px;">
+      <button class="option-btn" onclick="goCourse()">Continue ➤</button>
+      <br><br>
+      <button class="option-btn" onclick="window.location.href='index.html'">← Back</button>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- JS -->
+<script src="script.js"></script>
+
+</body>
+</html>
