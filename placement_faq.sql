@@ -360,3 +360,242 @@ INSERT INTO `placement_faq` (`dept`,`category`,`question`,`answer`,`keywords`) V
 ('general','general','Is placement guaranteed for all students?',
  '📌 Placement is an opportunity provided to all eligible students — it is NOT a guarantee.\nYour selection depends entirely on:\n• Your preparation and skills\n• Performance in aptitude, technical, GD, and HR rounds\n• Communication and confidence\n💡 The college opens the door — you have to walk through it.',
  'guarantee,guaranteed,placement guarantee,everyone placed,all students,assurance,promise placement');
+-- ============================================================
+-- placement_faq entries for all 15 NEW courses
+-- Run AFTER new_courses_dataset.sql
+-- ============================================================
+
+INSERT INTO `placement_faq` (`dept`,`category`,`question`,`answer`,`keywords`) VALUES
+
+-- ============================================================
+-- STATS (B.Sc. Statistics) — mapped to dept: basic_science
+-- ============================================================
+('basic_science','general','What companies hire B.Sc. Statistics students?',
+ '🏢 Companies that hire Statistics graduates:\n• Analytics firms: Mu Sigma, Fractal Analytics, Latent View Analytics\n• IT companies (analytics roles): TCS, Infosys, Wipro\n• BFSI: HDFC, ICICI, Axis Bank (risk analytics)\n• Research orgs: NSSO, RBI, CSIR\n• Pharma: Biostatistics roles in clinical research\n💡 Adding Python + R + SQL makes you eligible for data analyst roles in almost any industry.',
+ 'statistics company,stats company,statistics job,stats job,analytics company,statistics hire,stats placement'),
+
+('basic_science','general','What is the average salary for B.Sc. Statistics students?',
+ '💰 Average salary: ₹3–₹5 LPA for Statistics graduates.\n• Data Analyst roles: ₹4–₹6 LPA\n• Research roles (govt/pharma): ₹3–₹5 LPA\n• After M.Sc. Statistics: ₹6–₹10 LPA\n• After M.Sc. + Python/ML skills: ₹8–₹15 LPA\n💡 Python and R certifications are the fastest way to raise your starting salary as a Statistics graduate.',
+ 'statistics salary,stats salary,average salary statistics,stats lpa,statistics package'),
+
+('basic_science','skills','What technical skills are required for Statistics placements?',
+ '🔬 Key skills for Statistics placements:\n• R Programming (mandatory for most stats roles)\n• Python (NumPy, Pandas, SciPy, matplotlib)\n• SPSS / SAS (for pharma and research roles)\n• MS Excel (advanced formulas, pivot tables)\n• SQL (data extraction and reporting)\n• Probability and Hypothesis Testing\n• Data Visualization (Tableau, Power BI basics)\n• Statistical Modeling (regression, ANOVA, time series)\n💡 R + Python + SQL is the most powerful combination for a Statistics fresher.',
+ 'statistics skill,stats skill,r programming,spss,sas,data analyst skill,statistical modeling'),
+
+('basic_science','eligibility','What is the minimum CGPA for Statistics placements?',
+ '📊 CGPA requirements for Statistics students:\n• Analytics firms: CGPA 6.5+ with strong Python/R skills\n• Research roles (CSIR, RBI): CGPA 7.0+ mandatory\n• IT company analytics roles: CGPA 6.0+\n• Pharma biostatistics: CGPA 6.5+\n💡 In Statistics, your project portfolio and programming skills often matter more than CGPA for private sector jobs.',
+ 'statistics cgpa,stats cgpa,minimum cgpa statistics,statistics eligibility,stats marks'),
+
+('basic_science','training','What training is given for Statistics students?',
+ '📚 Training for Statistics placement:\n• R and Python programming workshops\n• Data visualization and dashboard building\n• Aptitude and quantitative reasoning\n• Mock interviews for analyst roles\n• Resume building for analytics profiles\n• Statistical software (SPSS, SAS) hands-on training\n💡 Practice competitive coding on HackerRank (Statistics track) and Kaggle for real datasets.',
+ 'statistics training,stats training,analytics training,r training,python statistics'),
+
+('basic_science','interview','What questions are asked in Statistics interviews?',
+ '🔬 Common interview questions for Statistics graduates:\n• Explain the Central Limit Theorem and its importance.\n• What is the difference between Type I and Type II errors?\n• How do you handle missing data in a dataset?\n• What is the difference between correlation and causation?\n• Explain p-value and statistical significance.\n• Walk me through a data analysis project you completed.\n• What is overfitting in a statistical model?\n💡 Always be ready to write SQL queries and explain a regression model during analytics interviews.',
+ 'statistics interview,stats interview,analyst interview question,data analyst question statistics'),
+
+-- ============================================================
+-- PBPB (B.Sc. Plant Biology) — basic_science
+-- ============================================================
+('basic_science','general','What companies hire B.Sc. Plant Biology & Biotechnology students?',
+ '🔬 Companies and organisations that hire PBPB graduates:\n• Biotech companies: Biocon, Syngenta, Mahyco\n• Pharma (plant extraction): Sun Pharma, Himalaya Drug Company\n• Research: CSIR-NBRI, NCBS, ICGEB\n• Government: Forest Dept, State Agriculture Depts\n• Seed companies: National Seeds Corporation, Mahyco\n• Teaching: School and college lecturer roles\n💡 A M.Sc. + research publication dramatically improves your prospects in plant biotechnology.',
+ 'pbpb company,plant biology job,plant biotechnology company,botany job,pbpb placement'),
+
+('basic_science','skills','What skills are required for Plant Biology & Biotechnology placements?',
+ '🔬 Key skills for PBPB placements:\n• Plant Tissue Culture techniques\n• PCR and gel electrophoresis\n• Microscopy (light and fluorescence)\n• Bioinformatics tools (BLAST, MEGA, CLUSTAL)\n• DNA/RNA extraction protocols\n• Basic Python or R for data analysis\n• Lab safety and GLP protocols\n• Scientific report writing\n💡 A CSIR internship certificate on your resume is highly valued in the plant science job market.',
+ 'pbpb skill,plant biology skill,tissue culture skill,molecular biology skill,botany skill'),
+
+('basic_science','interview','What questions are asked in Plant Biology interviews?',
+ '🔬 Common interview questions for PBPB students:\n• Explain the process and applications of plant tissue culture.\n• What is CRISPR-Cas9 and how is it used in plant improvement?\n• Describe your final year project.\n• What is the principle of PCR?\n• Explain Agrobacterium-mediated transformation.\n• What bioinformatics tools have you used?\n• What is the difference between somatic and zygotic embryogenesis?\n💡 Be ready to discuss your laboratory practicals in detail — interviewers test hands-on knowledge.',
+ 'pbpb interview,plant biology interview,plant biotechnology interview,botany interview question'),
+
+-- ============================================================
+-- MAHRM (M.A. Human Resource Management) — management
+-- ============================================================
+('management','general','What companies hire M.A. HRM graduates?',
+ '💼 Top companies recruiting M.A. HRM graduates:\n• IT companies: TCS (HR roles), Infosys, Wipro, Accenture\n• Consulting: Deloitte, Mercer, Aon Hewitt\n• Banking: HDFC Bank, ICICI Bank (HR operations)\n• Staffing firms: Manpower, TeamLease, Randstad\n• E-commerce: Amazon, Flipkart (HR Operations)\n• Startups: High demand for HR generalists\n💡 HRIS tool knowledge (Workday, SAP SuccessFactors, Zoho People) significantly increases your marketability.',
+ 'mahrm company,hrm company,hr management job,human resource management placement,hr masters job'),
+
+('management','skills','What skills are required for M.A. HRM placements?',
+ '💼 Key skills for M.A. HRM placements:\n• Recruitment and talent acquisition\n• Performance management systems\n• Labour law (Industrial Disputes Act, Factories Act, PF, ESI)\n• HRIS tools (SAP HR, Zoho People, Darwinbox)\n• Payroll processing and compliance\n• Training and development design\n• HR analytics (MS Excel, Power BI basics)\n• Compensation and benefits management\n💡 A SHRM or PHR certification adds significant credibility to your HRM profile.',
+ 'hrm skill,hr management skill,mahrm skill,human resource skill,hr analytics skill'),
+
+('management','interview','What questions are asked in M.A. HRM interviews?',
+ '💼 Common interview questions for M.A. HRM graduates:\n• How would you handle a conflict between two senior employees?\n• Design a performance appraisal system for a 200-person company.\n• What HR metrics would you track and why?\n• Explain the difference between recruitment and selection.\n• What is employer branding and how do you build it?\n• Describe a time you influenced someone without authority.\n• What is the HRBP model?\n💡 Use the STAR method for all behavioral questions — specific situations score highest.',
+ 'hrm interview,hr management interview,mahrm interview,human resource interview question'),
+
+-- ============================================================
+-- MSW (Master of Social Work) — arts
+-- ============================================================
+('arts','general','What organisations hire Master of Social Work graduates?',
+ '🎨 Organisations recruiting MSW graduates:\n• NGOs: CRY, Aga Khan Foundation, HelpAge India, Pratham\n• International: UNICEF, WHO, UNDP (India offices)\n• Government: Social Welfare Departments, Child Welfare Committees\n• Hospitals: Medical social workers in Apollo, Fortis\n• Corporates: CSR roles in TCS, Infosys Foundation, Tata Trusts\n• Research: Social research institutes and think tanks\n💡 Government social work roles offer excellent job security and salary. UPSC and state PSC exams include social work roles.',
+ 'msw company,social work job,msw placement,social worker job,ngo job social work'),
+
+('arts','skills','What skills are required for MSW placements?',
+ '🎨 Key skills for MSW graduates:\n• Community development methodology\n• Casework and counselling skills\n• Social research (survey design, data analysis)\n• Programme management and monitoring (M&E)\n• Report writing and documentation\n• Proposal writing for grants and funding\n• MS Office (Excel for data, Word for reports)\n• Communication in local languages\n💡 A proficiency in local language + English communication is a strong differentiator for MSW graduates in field roles.',
+ 'msw skill,social work skill,ngo skill,community development skill,casework skill'),
+
+('arts','interview','What questions are asked in MSW interviews?',
+ '🎨 Common interview questions for MSW graduates:\n• Walk me through a fieldwork project you led.\n• How would you conduct a community needs assessment?\n• What is the difference between charity and development?\n• How do you handle burnout in social work?\n• Describe a situation where a client resisted your help.\n• What is PRA (Participatory Rural Appraisal)?\n• How would you design an intervention for urban homeless youth?\n💡 MSW interviews heavily test your fieldwork experience — have 2–3 detailed field stories ready.',
+ 'msw interview,social work interview,ngo interview,community development interview'),
+
+-- ============================================================
+-- MSPB (M.Sc. Plant Biology PG) — basic_science
+-- ============================================================
+('basic_science','general','What companies hire M.Sc. Plant Biology & Biotechnology graduates?',
+ '🔬 Companies and organisations for M.Sc. PBPB graduates:\n• Biotech R&D: Biocon, Serum Institute, Syngenta\n• Pharma (plant-based APIs): Himalaya, Dabur Research\n• Government Research: CSIR-NBRI, ICAR, ICGEB, NCBS\n• Seed companies: Pioneer (Corteva), Mahyco, BAYER CropScience\n• Academia: Lecturer / Research Associate positions\n• Bioinformatics companies: Strand Life Sciences\n💡 A peer-reviewed publication from your M.Sc. dissertation sets you apart dramatically in research-track hiring.',
+ 'mspb company,plant biotech pg job,msc plant biology job,plant science research job'),
+
+('basic_science','skills','What skills are required for M.Sc. Plant Biology placements?',
+ '🔬 Advanced skills for M.Sc. PBPB placements:\n• CRISPR-Cas9 gene editing\n• Flow cytometry and confocal microscopy\n• Proteomics and metabolomics basics\n• Bioinformatics (BLAST, MEGA, Biopython, R)\n• Western blotting and ELISA\n• RNA-seq analysis\n• Scientific writing (research papers, grants)\n• Agrobacterium transformation protocol\n💡 Apply for JRF (CSIR-UGC NET) if targeting research — it provides a fellowship stipend and opens prestigious research positions.',
+ 'mspb skill,plant biotech skill,msc plant biology skill,molecular plant science skill,crispr plant'),
+
+-- ============================================================
+-- MSBIO (M.Sc. Biostatistics) — basic_science
+-- ============================================================
+('basic_science','general','What companies hire M.Sc. Biostatistics graduates?',
+ '🔬 Top companies for Biostatistics graduates:\n• CROs (Contract Research): IQVIA, Parexel, Quintiles, Covance\n• Pharma: Pfizer India, AstraZeneca, Cipla R&D\n• Government: ICMR, NIH-funded projects\n• Analytics: Mu Sigma, Fractal (health analytics division)\n• Hospitals: Clinical research units\n• Academic research: Biostatistics faculty positions\n💡 SAS certification is the gold standard for clinical trial biostatistician roles — prioritise this.',
+ 'msbio company,biostatistics job,msc biostatistics job,clinical trial statistician,cro job'),
+
+('basic_science','skills','What skills are required for Biostatistics placements?',
+ '🔬 Key skills for M.Sc. Biostatistics:\n• SAS (most demanded in clinical research)\n• R programming (survival analysis, meta-analysis)\n• Clinical trial design (phases, randomisation, blinding)\n• Epidemiological methods (incidence, prevalence, odds ratio)\n• Statistical Programming (Python, Stata)\n• Data management (clinical databases, EDC systems)\n• Good Clinical Practice (GCP) knowledge\n• Scientific and regulatory writing\n💡 A CDISC SDTM knowledge + SAS certification makes you immediately job-ready in pharma CRO roles.',
+ 'msbio skill,biostatistics skill,clinical trial skill,sas programming,survival analysis skill'),
+
+('basic_science','interview','What questions are asked in Biostatistics interviews?',
+ '🔬 Common interview questions for Biostatistics graduates:\n• Explain the phases of a clinical trial.\n• What is the difference between ITT and per-protocol analysis?\n• How do you calculate sample size for a two-arm RCT?\n• What is a Kaplan-Meier curve?\n• Explain Type I and Type II errors in the context of drug trials.\n• What is Bonferroni correction and when do you use it?\n• Describe the logistic regression model and its output interpretation.\n💡 Be ready to write or explain SAS PROC code — many CRO interviews include a practical coding test.',
+ 'msbio interview,biostatistics interview,clinical research interview,sas interview,cro interview'),
+
+-- ============================================================
+-- MSPHY (M.Sc. Physics) — basic_science
+-- ============================================================
+('basic_science','general','What companies hire M.Sc. Physics graduates?',
+ '🔬 Companies and organisations hiring M.Sc. Physics graduates:\n• Government research: ISRO, DRDO, BARC, CSIR labs\n• IT companies (analytics/modelling roles): TCS Research, IBM Research\n• Semiconductor/electronics: Texas Instruments, STMicroelectronics\n• Teaching: IIT/NIT/Engineering colleges (with GATE/NET)\n• Analytics firms: Quantitative modelling roles\n• Finance: Quantitative analyst (quant) roles in investment banks\n💡 GATE Physics + JEST are the most important exams for M.Sc. Physics graduates targeting high-paying research roles.',
+ 'msphy company,physics pg job,msc physics job,physics placement,research job physics'),
+
+('basic_science','skills','What skills are required for M.Sc. Physics placements?',
+ '🔬 Key skills for M.Sc. Physics placements:\n• Computational Physics (Python, MATLAB, C++)\n• Experimental techniques (XRD, Spectroscopy, TEM/SEM)\n• Mathematical modelling and simulation\n• MATLAB/Simulink\n• LaTeX for scientific documentation\n• Data analysis (NumPy, SciPy, matplotlib)\n• Semiconductor device physics (for industry roles)\n• Quantum mechanics and electrodynamics (for research roles)\n💡 Python + Computational Physics skills open IT and quant finance roles to Physics graduates.',
+ 'msphy skill,physics skill,computational physics,matlab skill,msc physics skill,experimental physics'),
+
+-- ============================================================
+-- MSCHEM (M.Sc. Chemistry) — basic_science
+-- ============================================================
+('basic_science','general','What companies hire M.Sc. Chemistry graduates?',
+ '🔬 Companies hiring M.Sc. Chemistry graduates:\n• Pharma: Cipla, Dr. Reddy\'s, Sun Pharma, Aurobindo\n• Chemical companies: Pidilite, UPL, Aarti Industries\n• Research: CSIR-IICT, CSIR-NCL, CFTRI\n• Cosmetics/FMCG: HUL (R&D), P&G, Marico\n• Testing labs: SGS India, Bureau Veritas, Eurofins\n• Government: FSSAI, BIS, Drug Inspectorate\n💡 GATE Chemistry is a strong pathway to prestigious research positions at IITs and CSIR labs.',
+ 'mschem company,chemistry pg job,msc chemistry job,pharma chemistry job,analytical chemistry job'),
+
+('basic_science','skills','What skills are required for M.Sc. Chemistry placements?',
+ '🔬 Key skills for M.Sc. Chemistry placements:\n• Analytical instruments: HPLC, GC, GC-MS, LC-MS\n• Spectroscopy: NMR, IR, UV-Vis, Mass Spec\n• Good Laboratory Practice (GLP)\n• Analytical method validation (ICH Q2R1)\n• Organic synthesis techniques\n• ChemDraw for structure drawing\n• Python/MATLAB for data analysis\n• Regulatory knowledge: FSSAI, USP, BP\n💡 HPLC + method validation skills are the most in-demand for pharma QC and R&D roles.',
+ 'mschem skill,chemistry skill,hplc skill,analytical chemistry skill,organic chemistry skill'),
+
+('basic_science','interview','What questions are asked in M.Sc. Chemistry interviews?',
+ '🔬 Common interview questions for M.Sc. Chemistry graduates:\n• Explain your dissertation research and its industry relevance.\n• What is HPLC? When would you use it over GC?\n• Explain the principle of NMR spectroscopy.\n• What is ICH Q2(R1) method validation?\n• How do you prepare a 0.1 M solution of NaOH?\n• What safety protocols do you follow when handling hazardous chemicals?\n• What is retrosynthetic analysis?\n💡 Pharma QC interviews often include a practical question — be ready to describe an HPLC run procedure step by step.',
+ 'mschem interview,chemistry interview,pharma chemistry interview,analytical interview,hplc interview'),
+
+-- ============================================================
+-- MSHSN (M.Sc. Food Science Nutrition) — basic_science
+-- ============================================================
+('basic_science','general','What companies hire M.Sc. Food Science Nutrition graduates?',
+ '🔬 Companies hiring M.Sc. MSHSN graduates:\n• Hospitals: Apollo, Fortis, AIIMS (Clinical Dietician)\n• Food industry: Nestlé, ITC Foods, Britannia, Amul\n• Pharma nutrition: Abbott Nutrition, Danone, PepsiCo R&D\n• Government: FSSAI, NIN, ICMR-NIN\n• Wellness companies: Healthify, Cult.fit, Portea\n• Research: Food quality and safety labs\n💡 An RD (Registered Dietitian) registration after your M.Sc. is a powerful credential for clinical roles.',
+ 'mshsn company,food science job,nutrition job,dietitian job,clinical nutrition job'),
+
+('basic_science','skills','What skills are required for M.Sc. Food Science placements?',
+ '🔬 Key skills for MSHSN placements:\n• Clinical diet planning (therapeutic diets: diabetic, renal, cardiac)\n• HACCP and FSSAI food safety compliance\n• Proximate analysis and nutritional assessment\n• Diet analysis software (Dietplan, NutriAssist)\n• Food product development and quality control\n• MS Excel for dietary tracking\n• Patient counselling and communication\n• Research methodology and clinical study design\n💡 FSSAI Food Safety Supervisor certification + clinical internship hours = most hireable MSHSN graduate profile.',
+ 'mshsn skill,food science skill,nutrition skill,dietitian skill,haccp skill,clinical nutrition skill'),
+
+-- ============================================================
+-- MSDAI (M.Sc. Data Science and AI) — basic_science
+-- ============================================================
+('basic_science','general','What companies hire M.Sc. Data Science and AI graduates?',
+ '🔬 Top companies for M.Sc. MSDAI graduates:\n• Product companies: Google, Microsoft, Amazon, Adobe\n• IT MNCs: TCS Research, Infosys AI, Wipro Holmes\n• Analytics: Fractal, Mu Sigma, Tiger Analytics\n• Startups: Dozens of AI/ML startups in Bengaluru/Hyderabad\n• FinTech: Razorpay, Zepto (data teams)\n• Healthcare AI: Niramai, SigTuple\n💡 A strong GitHub portfolio with ML projects + Kaggle competition rankings significantly increases your shortlisting rate.',
+ 'msdai company,data science job,ai job,machine learning job,msc data science job,artificial intelligence placement'),
+
+('basic_science','skills','What skills are required for M.Sc. Data Science & AI placements?',
+ '🔬 Key skills for MSDAI placements:\n• Machine Learning (sklearn, XGBoost, LightGBM)\n• Deep Learning (TensorFlow, PyTorch, Keras)\n• NLP (NLTK, spaCy, HuggingFace Transformers)\n• Python (Pandas, NumPy, Matplotlib, Seaborn)\n• SQL and Big Data basics (Spark, Hive)\n• Model Deployment (Flask, FastAPI, Docker basics)\n• Computer Vision (OpenCV, CNNs)\n• MLOps and experiment tracking (MLflow)\n💡 Kaggle + GitHub + a deployed ML project (on Streamlit or Hugging Face Spaces) is the gold standard portfolio.',
+ 'msdai skill,data science skill,machine learning skill,deep learning skill,ai skill,tensorflow,pytorch'),
+
+('basic_science','interview','What questions are asked in Data Science & AI interviews?',
+ '🔬 Common interview questions for MSDAI graduates:\n• Explain the bias-variance tradeoff.\n• What is the difference between bagging and boosting?\n• How do you handle an imbalanced dataset?\n• Explain attention mechanism in transformers.\n• What metrics do you use beyond accuracy for classification?\n• Walk me through a complete ML pipeline you built.\n• What is regularisation and why is it needed?\n💡 Most data science interviews include a take-home assignment or a live coding test — practise on Kaggle datasets daily.',
+ 'msdai interview,data science interview,machine learning interview,ai interview,ml interview question'),
+
+-- ============================================================
+-- MAECO (M.A. Economics) — arts
+-- ============================================================
+('arts','general','What companies hire M.A. Economics graduates?',
+ '🎨 Organisations and companies hiring M.A. Economics graduates:\n• Government: RBI, SEBI, NITI Aayog, Ministry of Finance\n• Consulting: McKinsey, BCG, Deloitte Economic Advisory\n• Banking: SBI, HDFC, ICICI (economic research teams)\n• International: World Bank, IMF, Asian Development Bank\n• Think tanks: NIPFP, NCAER, IEG Delhi\n• Research: IGIDR, ISI, IIM economics departments\n💡 The RBI Grade B exam is the most coveted direct government job for Economics graduates — start preparing from M.A. year 1.',
+ 'maeco company,economics job,ma economics job,economic research job,rbi job economics'),
+
+('arts','skills','What skills are required for M.A. Economics placements?',
+ '🎨 Key skills for M.A. Economics placements:\n• Econometrics (OLS, IV, Panel Data, Time Series)\n• Stata / EViews (most commonly used in economics research)\n• R programming (for academic and policy research)\n• Python (pandas, statsmodels — for analytics roles)\n• Macro and microeconomic policy analysis\n• Academic and policy writing\n• Data visualisation (Tableau, matplotlib)\n• MS Excel (Advanced — for financial sector roles)\n💡 Stata + econometric modelling + a working paper or publication is the strongest profile for economics research hiring.',
+ 'maeco skill,economics skill,econometrics skill,stata skill,economic research skill'),
+
+('arts','interview','What questions are asked in M.A. Economics interviews?',
+ '🎨 Common interview questions for M.A. Economics graduates:\n• Explain the difference between monetary and fiscal policy.\n• What is your dissertation topic and methodology?\n• Explain the Phillips curve and its current relevance.\n• What is the Gini coefficient and what does India\'s value indicate?\n• How would you design a study to evaluate a government welfare scheme?\n• What is cointegration in time series?\n• Explain comparative advantage and its criticism.\n💡 RBI and SEBI interviews are highly technical — prepare macroeconomic theory, Indian economy data, and econometric methods in depth.',
+ 'maeco interview,economics interview,rbi interview economics,policy interview economics'),
+
+-- ============================================================
+-- MSCP (M.Sc. Counselling Psychology) — basic_science
+-- ============================================================
+('basic_science','general','What organisations hire M.Sc. Counselling Psychology graduates?',
+ '🔬 Organisations hiring M.Sc. Counselling Psychology graduates:\n• Hospitals: Apollo, Fortis (psychiatry departments)\n• Mental health NGOs: iCall (TISS), Vandrevala Foundation, Mann Talks\n• Schools/Colleges: School counsellors (mandatory in many CBSE schools)\n• Corporate: Employee Assistance Programme (EAP) counsellors\n• Government: NHM counsellors, NIMHANS-affiliated clinics\n• Private practice: Individual therapy (after RCI registration)\n💡 RCI (Rehabilitation Council of India) registration is mandatory to practice as a clinical/counselling psychologist in India.',
+ 'mscp company,counselling psychology job,psychologist job,therapist job,mental health job,school counsellor'),
+
+('basic_science','skills','What skills are required for Counselling Psychology placements?',
+ '🔬 Key skills for M.Sc. Counselling Psychology:\n• Therapeutic modalities: CBT, DBT, Person-Centred, EMDR\n• Psychological assessment tools: PHQ-9, GAD-7, MMSE, BDI\n• Case conceptualisation and treatment planning\n• Crisis intervention and suicide risk assessment\n• Ethics and confidentiality in counselling\n• Research methods and SPSS/R\n• Documentation and clinical report writing\n• Mindfulness and psychoeducation facilitation\n💡 At least 600 hours of supervised clinical placement is required for RCI registration — track your hours carefully.',
+ 'mscp skill,counselling skill,psychology skill,cbt skill,assessment skill,therapy skill'),
+
+('basic_science','interview','What questions are asked in Counselling Psychology interviews?',
+ '🔬 Common interview questions for M.Sc. Counselling Psychology graduates:\n• Describe a challenging counselling case and your approach.\n• How do you conduct a risk assessment for suicidal ideation?\n• What is your primary theoretical orientation and why?\n• How do you maintain professional boundaries with clients?\n• What is the difference between CBT and DBT?\n• How would you handle a client who discloses abuse during a session?\n• Explain confidentiality limits in the Indian context.\n💡 Always have 2–3 anonymised case examples ready — clinical interviews are largely experiential, not theoretical.',
+ 'mscp interview,counselling psychology interview,psychologist interview,therapy interview,mental health interview'),
+
+-- ============================================================
+-- MSAM (M.Sc. Applicable Mathematics) — basic_science
+-- ============================================================
+('basic_science','general','What companies hire M.Sc. Applicable Mathematics graduates?',
+ '🔬 Companies hiring M.Sc. Applicable Mathematics graduates:\n• Data Science/Analytics: all major analytics firms\n• FinTech: Quantitative analyst roles (Jane Street, Goldman Sachs algo teams)\n• IT: TCS Research, IBM Research, Infosys AI\n• Operations Research: logistics, supply chain optimisation firms\n• Insurance: Actuarial analyst roles (with additional CT exams)\n• Government: DRDO, ISRO (modelling roles)\n💡 GATE Mathematics is a strong gateway to IIT research positions and PSU roles for Applicable Maths graduates.',
+ 'msam company,applicable mathematics job,msc maths job,operations research job,quantitative analyst job'),
+
+('basic_science','skills','What skills are required for M.Sc. Applicable Mathematics placements?',
+ '🔬 Key skills for M.Sc. Applicable Mathematics:\n• Mathematical modelling and optimisation\n• Operations Research (LP, Integer Programming, Network Flow)\n• Python (NumPy, SciPy, SymPy, OR-Tools)\n• MATLAB / Mathematica\n• Numerical methods (Runge-Kutta, FEM basics)\n• Statistics and probability theory\n• Graph theory and combinatorics\n• LaTeX for mathematical documentation\n💡 Python + Operations Research (scipy.optimize, OR-Tools) is the most industry-ready skill combo for this degree.',
+ 'msam skill,applicable maths skill,operations research skill,mathematical modeling skill,python math'),
+
+-- ============================================================
+-- MCOMAF (M.Com Accounting and Finance) — commerce
+-- ============================================================
+('commerce','general','What companies hire M.Com Accounting and Finance graduates?',
+ '💼 Top companies for M.Com (Accounting and Finance) graduates:\n• Big 4 Audit Firms: Deloitte, EY, KPMG, PwC (senior roles)\n• Banking: HDFC, ICICI, SBI (financial analysis)\n• Corporate Finance: Tata Group, Mahindra (Treasury/Finance)\n• FinTech: Razorpay, Zepto, Paytm (Finance operations)\n• Government: CAG, ICAI-affiliated training roles\n• Consulting: Financial advisory in mid-tier firms\n💡 A simultaneous CMA or CPA pursuit while doing M.Com dramatically elevates your earning potential to ₹8–15 LPA.',
+ 'mcomaf company,mcom job,accounting finance job,mcom placement,financial analyst job mcom'),
+
+('commerce','skills','What skills are required for M.Com Accounting and Finance placements?',
+ '💼 Key skills for M.Com (AF) placements:\n• Advanced Accounting (Ind AS, IFRS, Consolidation)\n• Financial Analysis (ratio analysis, DCF valuation)\n• Tally Prime / SAP FICO\n• MS Excel (Advanced — Power Query, Pivot, VLOOKUP, Macros)\n• Direct and Indirect Taxation (GST, Income Tax)\n• Auditing (statutory, internal, forensic)\n• Python for Finance (basic financial modelling)\n• XBRL and MCA compliance\n💡 Ind AS + financial modelling + Excel proficiency is the core hiring criteria for most M.Com (AF) roles in Big 4 and corporate finance.',
+ 'mcomaf skill,mcom accounting skill,ifrs skill,financial modeling skill,sap fico skill,advanced accounting'),
+
+('commerce','interview','What questions are asked in M.Com Accounting and Finance interviews?',
+ '💼 Common interview questions for M.Com (AF) graduates:\n• Walk me through how you prepare a cash flow statement.\n• Explain the difference between Ind AS and IFRS revenue recognition.\n• What is deferred tax and how is it treated in financial statements?\n• How do you perform ratio analysis for a company\'s health?\n• What is XBRL filing and who needs to comply?\n• Explain the Black-Scholes option pricing model simply.\n• What is forensic accounting?\n💡 Big 4 interviews often include a short Excel or accounting case test — practise financial statement analysis and ratio computation.',
+ 'mcomaf interview,mcom interview,accounting finance interview,big4 interview,financial analyst interview'),
+
+-- ============================================================
+-- MBA — commerce
+-- ============================================================
+('commerce','general','What companies hire MBA graduates?',
+ '💼 Top companies recruiting MBA graduates:\n• Consulting: McKinsey, BCG, Bain, Deloitte, KPMG\n• FMCG: HUL, ITC, P&G (Management Trainee programs)\n• E-commerce: Amazon, Flipkart (Operations/Product)\n• BFSI: HDFC Bank, Axis, Kotak, Bajaj Finserv\n• IT/Tech: TCS, Infosys, IBM (business roles)\n• Startups: Numerous growth/product/strategy roles\n💡 MBA salary range is widest of any degree: ₹6–30+ LPA depending on specialisation, college, and company.',
+ 'mba company,mba placement,mba job,management job,mba hiring,consulting job mba'),
+
+('commerce','general','What is the average salary for MBA graduates?',
+ '💰 MBA salary ranges:\n• Tier-1 MBA (IIMs, ISB): ₹15–30+ LPA\n• Tier-2 MBA (private colleges): ₹6–12 LPA\n• Marketing specialisation: ₹6–12 LPA fresher\n• Finance specialisation: ₹7–15 LPA\n• HR specialisation: ₹5–9 LPA\n• Operations specialisation: ₹6–10 LPA\n💡 MBA salary depends heavily on your college tier, specialisation, and internship quality. Aim for a strong summer internship — it often converts to a PPO.',
+ 'mba salary,mba package,mba average salary,management salary,mba lpa,mba ctc'),
+
+('commerce','skills','What skills are required for MBA placements?',
+ '💼 Key skills for MBA placements:\n• Strategic thinking and business analysis\n• Financial modelling (DCF, LBO for finance specialisation)\n• Marketing analytics and CRM (Salesforce, HubSpot)\n• Operations and supply chain fundamentals\n• MS Excel + Power BI (dashboards and data analysis)\n• Python for business analytics\n• Leadership and team management\n• Professional communication and presentation\n• Case study methodology (McKinsey, BCG frameworks)\n💡 Consulting MBA interviews are case-based. Practise 50+ cases on CasePrepCo or Victor Cheng\'s resources before your interviews.',
+ 'mba skill,mba technical skill,consulting skill,mba analytics,financial modeling mba,mba communication'),
+
+('commerce','eligibility','What is the minimum CGPA for MBA placements?',
+ '📊 CGPA requirements for MBA placement:\n• Consulting firms (McKinsey, Deloitte): CGPA 7.0+ with strong case performance\n• FMCG (HUL, ITC): CGPA 6.5+ with leadership activities\n• Banking and Finance: CGPA 6.5+ with finance coursework\n• IT companies: CGPA 6.0+\n• Startups: Skills and internship experience often outweigh CGPA\n💡 In MBA, your summer internship performance and pre-placement offers (PPOs) are more important than CGPA for most companies.',
+ 'mba cgpa,mba eligibility,mba marks,mba academic requirement,mba gpa'),
+
+('commerce','training','What training is given for MBA placements?',
+ '📚 MBA placement training typically includes:\n• Case study workshops (consulting prep)\n• Financial modelling bootcamps\n• GD and PI preparation sessions\n• Company-specific preparation (HUL LEAP, Amazon bar-raiser style)\n• Resume and LinkedIn workshops\n• Guest lectures from senior alumni\n• Mock interviews with industry professionals\n💡 Start preparing for summer internship placements from Day 1 of your MBA — the entire first year builds towards your internship.',
+ 'mba training,mba placement preparation,mba mock interview,case study training,mba gd pi'),
+
+('commerce','interview','What questions are asked in MBA interviews?',
+ '💼 Common MBA interview questions:\n• Walk me through your resume and key achievements.\n• Why MBA? Why this company? Why this specialisation?\n• Give me a STAR example of leadership under pressure.\n• How would you price this product? (pricing case)\n• Perform a SWOT analysis of our company.\n• What is your 5-year plan post-MBA?\n• Why should we hire you over other MBA graduates?\n💡 MBA HR interviews are more rigorous than undergraduate — every answer should be backed by a specific, quantified example.',
+ 'mba interview,mba interview question,mba hr question,mba technical interview,consulting interview mba');
