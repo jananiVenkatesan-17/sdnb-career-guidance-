@@ -1345,4 +1345,1010 @@ INSERT INTO `resume_tips` (`tip`) VALUES
 ('Use consistent formatting — same font, size, and spacing throughout.');
 
 SET FOREIGN_KEY_CHECKS = 1;
--- END OF DATASET
+-- ============================================================
+-- PLACIFY — NEW COURSES DATASET
+-- Covers all courses in the images NOT already in the DB
+-- NEW COURSES (15 total):
+--   STATS, PBPB, MAHRM, MSW, MSPB, MSBIO, MSPHY, MSCHEM,
+--   MSHSN, MSDAI, MAECO, MSCP, MSAM, MCOMAF, MBA
+-- ============================================================
+-- Run this in phpMyAdmin → SQL tab
+-- Safe to run multiple times (INSERT IGNORE used for keywords/skills)
+-- ============================================================
+
+-- ============================================================
+-- 1. B.Sc. Statistics  →  STATS  (Science)
+-- ============================================================
+INSERT INTO courses (course_name, short_name) VALUES ('B.Sc. Statistics', 'STATS');
+SET @stats = LAST_INSERT_ID();
+
+INSERT INTO hr_questions (course_id, question) VALUES
+(@stats, 'Tell me about yourself and your interest in Statistics.'),
+(@stats, 'How do you apply statistical concepts to solve real-world problems?'),
+(@stats, 'What statistical software have you worked with?'),
+(@stats, 'Describe a data analysis project you completed during your course.'),
+(@stats, 'Where do you see yourself in 5 years in the statistics or analytics field?');
+
+INSERT INTO gd_topics (course_id, topic, stream) VALUES
+(@stats, 'Is data the new oil? What are the statistical implications?', 'science'),
+(@stats, 'Role of statistics in fighting fake news and misinformation.', 'science'),
+(@stats, 'AI vs Traditional Statistics: which is more reliable for decision making?', 'science'),
+(@stats, 'Should statistical literacy be made mandatory in school curriculum?', 'science'),
+(@stats, 'Big Data: opportunity or threat to individual privacy?', 'science');
+
+INSERT INTO mock_interview_questions (course_id, question) VALUES
+(@stats, 'Explain the difference between descriptive and inferential statistics.'),
+(@stats, 'What is a p-value and how do you interpret a result with p < 0.05?'),
+(@stats, 'Describe a real-world application of regression analysis.'),
+(@stats, 'What are Type I and Type II errors in hypothesis testing?'),
+(@stats, 'How would you handle missing data in a large dataset?');
+
+INSERT INTO aptitude_questions (course_id, question, answer, topic) VALUES
+(@stats, 'The mean of 5 numbers is 20. If one number is removed and the new mean is 18, what was the removed number?', '28', 'Statistics'),
+(@stats, 'In a normal distribution, approximately what percentage of data falls within 2 standard deviations of the mean?', '95%', 'Probability'),
+(@stats, 'If P(A)=0.4 and P(B)=0.3 and A,B are independent, find P(A∩B).', '0.12', 'Probability'),
+(@stats, 'A dataset: 4, 8, 6, 10, 2. What is the variance?', '8', 'Statistics'),
+(@stats, 'What is the median of: 3, 7, 1, 9, 5?', '5', 'Statistics');
+
+INSERT INTO technical_questions (course_id, question) VALUES
+(@stats, 'Explain the Central Limit Theorem and its significance in statistics.'),
+(@stats, 'What is the difference between correlation and causation? Give an example.'),
+(@stats, 'Explain the Chi-square test and when it is used.'),
+(@stats, 'What is ANOVA and how does it differ from a t-test?'),
+(@stats, 'How do you detect and handle outliers in a dataset?');
+
+INSERT INTO coding_problems (course_id, problem, difficulty, hint) VALUES
+(@stats, 'Write a Python program to calculate mean, median, and mode of a dataset without using libraries.', 'Easy', 'Sort the list; median is middle value; mode is most frequent'),
+(@stats, 'Implement standard deviation calculation from scratch in Python.', 'Medium', 'sqrt(sum of squared differences from mean / n)'),
+(@stats, 'Generate a scatter plot and calculate correlation coefficient for two datasets.', 'Medium', 'Use matplotlib and numpy.corrcoef()'),
+(@stats, 'Perform simple linear regression on a given dataset and predict values.', 'Medium', 'Use sklearn LinearRegression: fit then predict'),
+(@stats, 'Read a CSV, identify and remove outliers using IQR method, plot box plot.', 'Medium', 'IQR = Q3 - Q1; remove values < Q1-1.5*IQR or > Q3+1.5*IQR');
+
+INSERT INTO skills (course_id, skill_name, skill_type) VALUES
+(@stats, 'Statistical Analysis', 'Technical'), (@stats, 'R Programming', 'Technical'),
+(@stats, 'Python (NumPy, Pandas, SciPy)', 'Technical'), (@stats, 'SPSS / SAS', 'Technical'),
+(@stats, 'Data Visualization (Matplotlib, Seaborn)', 'Technical'),
+(@stats, 'Probability & Hypothesis Testing', 'Technical'), (@stats, 'MS Excel (Advanced)', 'Technical'),
+(@stats, 'Research Methodology', 'Technical'), (@stats, 'Analytical Thinking', 'Soft'),
+(@stats, 'Communication', 'Soft'), (@stats, 'Report Writing', 'Soft');
+
+INSERT INTO ats_keywords (course_id, keyword) VALUES
+(@stats,'statistics'),(@stats,'data analysis'),(@stats,'r programming'),(@stats,'python'),
+(@stats,'spss'),(@stats,'regression analysis'),(@stats,'hypothesis testing'),(@stats,'probability'),
+(@stats,'data visualization'),(@stats,'statistical modeling'),(@stats,'ms excel'),
+(@stats,'research methodology'),(@stats,'analytical thinking'),(@stats,'numpy'),(@stats,'pandas');
+
+INSERT INTO companies (company_name, role, salary, type, stream) VALUES
+('Mu Sigma', 'Analyst - Statistics', '₹4–6 LPA', 'On-Campus', 'science'),
+('Fractal Analytics', 'Business Analyst', '₹5–7 LPA', 'Off-Campus', 'science'),
+('Latent View Analytics', 'Data Analyst', '₹4–6 LPA', 'Off-Campus', 'science');
+
+-- ============================================================
+-- 2. B.Sc. Plant Biology & Plant Biotechnology  →  PBPB  (Science)
+-- ============================================================
+INSERT INTO courses (course_name, short_name) VALUES ('B.Sc. Plant Biology & Plant Biotechnology', 'PBPB');
+SET @pbpb = LAST_INSERT_ID();
+
+INSERT INTO hr_questions (course_id, question) VALUES
+(@pbpb, 'Tell me about yourself and why you chose Plant Biology & Biotechnology.'),
+(@pbpb, 'Describe a lab experiment you are most proud of from your course.'),
+(@pbpb, 'How do you stay updated on developments in plant biotechnology?'),
+(@pbpb, 'What are your career goals in the field of plant sciences?'),
+(@pbpb, 'What are your key strengths as a plant science graduate?');
+
+INSERT INTO gd_topics (course_id, topic, stream) VALUES
+(@pbpb, 'GM crops: scientific breakthrough or ecological risk?', 'science'),
+(@pbpb, 'Is plant biotechnology the solution to global food security?', 'science'),
+(@pbpb, 'Organic farming vs modern biotechnology: which is sustainable?', 'science'),
+(@pbpb, 'Role of plant science in developing climate-resilient crops.', 'science'),
+(@pbpb, 'Biofuels from plants: future of renewable energy?', 'science');
+
+INSERT INTO mock_interview_questions (course_id, question) VALUES
+(@pbpb, 'Explain the process of plant tissue culture and its applications.'),
+(@pbpb, 'What is genetic engineering and how is it applied in plant improvement?'),
+(@pbpb, 'Describe the significance of photosynthesis in plant productivity.'),
+(@pbpb, 'What lab techniques did you use in your plant science practicals?'),
+(@pbpb, 'How does plant biotechnology contribute to pharmaceutical development?');
+
+INSERT INTO aptitude_questions (course_id, question, answer, topic) VALUES
+(@pbpb, 'Which plant hormone is responsible for cell elongation?', 'Auxin (IAA)', 'Plant Biology'),
+(@pbpb, 'What is the process by which plants convert CO2 and water to glucose?', 'Photosynthesis', 'Botany'),
+(@pbpb, 'The basic chromosome number of a cell is n=7. What is the ploidy of a cell with 28 chromosomes?', 'Tetraploid (4n)', 'Genetics'),
+(@pbpb, 'Which technique is used to produce disease-free plants from a small piece of plant tissue?', 'Micropropagation / Tissue Culture', 'Biotechnology'),
+(@pbpb, 'What is the role of restriction enzymes in genetic engineering?', 'Cut DNA at specific sequences (restriction sites)', 'Biotechnology');
+
+INSERT INTO technical_questions (course_id, question) VALUES
+(@pbpb, 'Explain the principle and applications of PCR (Polymerase Chain Reaction).'),
+(@pbpb, 'What is CRISPR-Cas9 and how is it revolutionizing plant breeding?'),
+(@pbpb, 'Describe the steps involved in Agrobacterium-mediated gene transformation.'),
+(@pbpb, 'What is somatic hybridization and protoplast fusion?'),
+(@pbpb, 'Explain the significance of molecular markers in plant breeding programs.');
+
+INSERT INTO coding_problems (course_id, problem, difficulty, hint) VALUES
+(@pbpb, 'Write a Python program to parse a FASTA file and count nucleotide frequencies.', 'Medium', 'Read line by line, skip header lines starting with >'),
+(@pbpb, 'Calculate GC content percentage of a DNA sequence string in Python.', 'Easy', 'Count G+C, divide by total length, multiply by 100'),
+(@pbpb, 'Create a simple phylogenetic tree visualization using Python (Biopython/matplotlib).', 'Hard', 'Use Bio.Phylo module from Biopython'),
+(@pbpb, 'Write a Python script to translate a DNA sequence to protein sequence.', 'Medium', 'Use codon table dictionary or Bio.Seq module'),
+(@pbpb, 'Build an Excel report of plant growth measurements with charts using Python (openpyxl).', 'Medium', 'Use openpyxl to write data and add BarChart');
+
+INSERT INTO skills (course_id, skill_name, skill_type) VALUES
+(@pbpb, 'Plant Tissue Culture', 'Technical'), (@pbpb, 'Molecular Biology Techniques (PCR, gel electrophoresis)', 'Technical'),
+(@pbpb, 'Genetic Engineering Basics', 'Technical'), (@pbpb, 'Microscopy', 'Technical'),
+(@pbpb, 'Bioinformatics Tools (BLAST, MEGA)', 'Technical'), (@pbpb, 'Lab Safety Protocols', 'Technical'),
+(@pbpb, 'Scientific Report Writing', 'Soft'), (@pbpb, 'Research Methodology', 'Technical'),
+(@pbpb, 'Analytical Thinking', 'Soft'), (@pbpb, 'Teamwork', 'Soft');
+
+INSERT INTO ats_keywords (course_id, keyword) VALUES
+(@pbpb,'plant tissue culture'),(@pbpb,'pcr'),(@pbpb,'genetic engineering'),
+(@pbpb,'biotechnology'),(@pbpb,'molecular biology'),(@pbpb,'bioinformatics'),
+(@pbpb,'microscopy'),(@pbpb,'crispr'),(@pbpb,'gel electrophoresis'),
+(@pbpb,'plant breeding'),(@pbpb,'research'),(@pbpb,'lab skills'),
+(@pbpb,'photosynthesis'),(@pbpb,'dna extraction'),(@pbpb,'scientific writing');
+
+INSERT INTO companies (company_name, role, salary, type, stream) VALUES
+('Biocon', 'Research Trainee', '₹3–5 LPA', 'Off-Campus', 'science'),
+('Syngenta India', 'Plant Scientist Trainee', '₹3.5–5 LPA', 'Off-Campus', 'science'),
+('National Seeds Corporation', 'Field Scientist', '₹3–4 LPA', 'Off-Campus', 'science');
+
+-- ============================================================
+-- 3. M.A. Human Resource Management  →  MAHRM  (Commerce)
+-- ============================================================
+INSERT INTO courses (course_name, short_name) VALUES ('M.A. Human Resource Management', 'MAHRM');
+SET @mahrm = LAST_INSERT_ID();
+
+INSERT INTO hr_questions (course_id, question) VALUES
+(@mahrm, 'Tell me about yourself and why you chose HRM as your postgraduate specialization.'),
+(@mahrm, 'How would you handle a conflict between two team members?'),
+(@mahrm, 'What HR strategies would you use to improve employee retention?'),
+(@mahrm, 'Describe your understanding of performance management systems.'),
+(@mahrm, 'What are your strengths as an HR professional?');
+
+INSERT INTO gd_topics (course_id, topic, stream) VALUES
+(@mahrm, 'Remote work is redefining HR — are organizations prepared?', 'commerce'),
+(@mahrm, 'AI in HR: will automation replace human resources professionals?', 'commerce'),
+(@mahrm, 'Work-life balance vs productivity: HR''s dilemma', 'commerce'),
+(@mahrm, 'Diversity and inclusion: beyond policy into practice', 'commerce'),
+(@mahrm, 'Gig economy: challenges for traditional HR management', 'commerce');
+
+INSERT INTO mock_interview_questions (course_id, question) VALUES
+(@mahrm, 'Explain the complete recruitment and selection process you would design for a mid-sized company.'),
+(@mahrm, 'How would you design a performance appraisal system that is fair and motivating?'),
+(@mahrm, 'Describe a time you handled a difficult people situation and what was the outcome.'),
+(@mahrm, 'What is your approach to building a strong organisational culture?'),
+(@mahrm, 'How would you handle an employee who consistently underperforms despite warnings?');
+
+INSERT INTO aptitude_questions (course_id, question, answer, topic) VALUES
+(@mahrm, 'If a company has 500 employees and 10% attrition per year, how many new hires are needed to maintain headcount?', '50', 'HR Analytics'),
+(@mahrm, 'An employee joins on Jan 1 with 12 days annual leave. They take 3 days in Q1 and 4 days in Q2. How many days remain?', '5 days', 'HR Calculations'),
+(@mahrm, 'A company offers a 20% salary hike. If the current salary is ₹25,000/month, what is the new salary?', '₹30,000', 'Compensation'),
+(@mahrm, 'If 60 out of 200 candidates pass an aptitude test, what is the selection ratio?', '30%', 'HR Analytics'),
+(@mahrm, 'Training cost per employee is ₹5,000 and 40 employees were trained. What is the total training budget?', '₹2,00,000', 'HR Budgeting');
+
+INSERT INTO technical_questions (course_id, question) VALUES
+(@mahrm, 'Explain the difference between job analysis, job description, and job specification.'),
+(@mahrm, 'What is 360-degree feedback and when should it be used?'),
+(@mahrm, 'Describe the steps in the HR planning process.'),
+(@mahrm, 'What is the difference between training and development?'),
+(@mahrm, 'Explain the concept of employer branding and its importance in talent acquisition.');
+
+INSERT INTO coding_problems (course_id, problem, difficulty, hint) VALUES
+(@mahrm, 'Create an Excel employee attendance tracker with formulas using Python (openpyxl).', 'Easy', 'Use openpyxl to set up columns: Name, Days Present, Days Absent, % Attendance'),
+(@mahrm, 'Write a Python program to analyse employee survey data from a CSV and compute average satisfaction scores.', 'Easy', 'Use pandas read_csv, groupby department, mean()'),
+(@mahrm, 'Build a simple Python program to calculate salary with HRA, DA, and PF deductions.', 'Easy', 'Define each component as percentage of basic salary'),
+(@mahrm, 'Create a pivot table from HR data (department-wise headcount and attrition) using Python pandas.', 'Medium', 'Use DataFrame.pivot_table(values, index, aggfunc)'),
+(@mahrm, 'Write SQL queries to find the top 5 highest-paid employees, average salary by department, and employees with no leave taken.', 'Medium', 'ORDER BY salary DESC LIMIT 5; GROUP BY dept; LEFT JOIN on leaves');
+
+INSERT INTO skills (course_id, skill_name, skill_type) VALUES
+(@mahrm, 'Recruitment & Selection', 'Technical'), (@mahrm, 'Performance Management', 'Technical'),
+(@mahrm, 'Labour Law & Compliance', 'Technical'), (@mahrm, 'HRIS Tools (SAP HR, Zoho People)', 'Technical'),
+(@mahrm, 'Payroll Processing', 'Technical'), (@mahrm, 'Training & Development', 'Technical'),
+(@mahrm, 'MS Excel & HR Analytics', 'Technical'), (@mahrm, 'Leadership', 'Soft'),
+(@mahrm, 'Communication', 'Soft'), (@mahrm, 'Conflict Resolution', 'Soft'),
+(@mahrm, 'Emotional Intelligence', 'Soft');
+
+INSERT INTO ats_keywords (course_id, keyword) VALUES
+(@mahrm,'recruitment'),(@mahrm,'performance management'),(@mahrm,'labour law'),
+(@mahrm,'hris'),(@mahrm,'payroll'),(@mahrm,'training and development'),
+(@mahrm,'employee engagement'),(@mahrm,'talent acquisition'),(@mahrm,'hr analytics'),
+(@mahrm,'communication'),(@mahrm,'leadership'),(@mahrm,'conflict resolution'),
+(@mahrm,'compensation'),(@mahrm,'organisational behaviour'),(@mahrm,'ms excel');
+
+INSERT INTO companies (company_name, role, salary, type, stream) VALUES
+('Deloitte', 'HR Associate', '₹5–6 LPA', 'On-Campus', 'commerce'),
+('Amazon', 'HR Coordinator', '₹5–7 LPA', 'Off-Campus', 'commerce'),
+('Infosys BPO', 'HR Executive', '₹3.5–5 LPA', 'On-Campus', 'commerce');
+
+-- ============================================================
+-- 4. Master of Social Work  →  MSW  (Arts)
+-- ============================================================
+INSERT INTO courses (course_name, short_name) VALUES ('Master of Social Work', 'MSW');
+SET @msw = LAST_INSERT_ID();
+
+INSERT INTO hr_questions (course_id, question) VALUES
+(@msw, 'Tell me about yourself and what drew you to social work.'),
+(@msw, 'Describe a field work experience that challenged you and what you learned.'),
+(@msw, 'How do you handle emotional stress when working with vulnerable populations?'),
+(@msw, 'What is your philosophy of social work practice?'),
+(@msw, 'Where do you see yourself contributing in the social development sector in 5 years?');
+
+INSERT INTO gd_topics (course_id, topic, stream) VALUES
+(@msw, 'Social media: tool for social change or catalyst for social division?', 'arts'),
+(@msw, 'Is mental health awareness in India reaching the communities that need it most?', 'arts'),
+(@msw, 'Casteism in modern India: social work''s responsibility and limitations', 'arts'),
+(@msw, 'NGOs vs Government agencies: who drives more impactful social change?', 'arts'),
+(@msw, 'Child labor: despite laws, why does it persist and what can social workers do?', 'arts');
+
+INSERT INTO mock_interview_questions (course_id, question) VALUES
+(@msw, 'Walk me through a community development project you led or participated in during field work.'),
+(@msw, 'How would you design an intervention program for street children in an urban setting?'),
+(@msw, 'Describe your experience with case management and documentation.'),
+(@msw, 'How do you maintain professional boundaries while building empathy with clients?'),
+(@msw, 'What approach would you use to mobilize a community that is resistant to change?');
+
+INSERT INTO aptitude_questions (course_id, question, answer, topic) VALUES
+(@msw, 'An NGO serves 200 families per month. If funding increases by 25%, how many additional families can be served?', '50 more families (250 total)', 'Social Statistics'),
+(@msw, 'A social worker visits 8 families per day, 5 days a week. How many families are visited in a 4-week month?', '160 families', 'Case Management'),
+(@msw, 'If a community program has a budget of ₹2,00,000 and spends 40% on training, how much is left for field activities?', '₹1,20,000', 'NGO Finance'),
+(@msw, 'A survey of 500 children shows 30% are malnourished. How many children does this represent?', '150 children', 'Social Research'),
+(@msw, 'An intervention reduced school dropouts from 80 to 48. What is the percentage reduction?', '40%', 'Programme Evaluation');
+
+INSERT INTO technical_questions (course_id, question) VALUES
+(@msw, 'Explain the ecological systems theory (Bronfenbrenner) and its application in social work practice.'),
+(@msw, 'What is community development? Describe its key principles and steps.'),
+(@msw, 'Differentiate between casework, group work, and community organisation in social work.'),
+(@msw, 'What is the role of social workers in disaster management and rehabilitation?'),
+(@msw, 'Explain participatory rural appraisal (PRA) techniques used in community needs assessment.');
+
+INSERT INTO coding_problems (course_id, problem, difficulty, hint) VALUES
+(@msw, 'Write a Python program to analyse survey data from beneficiaries and produce summary statistics.', 'Easy', 'Use pandas: read_csv, describe(), value_counts()'),
+(@msw, 'Create a case management tracking spreadsheet in Excel using Python (openpyxl).', 'Easy', 'Columns: Case ID, Client Name, Status, Next Review Date, Social Worker'),
+(@msw, 'Write a Python script to visualise NGO programme reach data (state-wise) as a bar chart.', 'Easy', 'Use matplotlib.pyplot.bar() with state names and beneficiary counts'),
+(@msw, 'Build a simple beneficiary registration form using HTML and save data to a text file using PHP.', 'Medium', 'Use HTML form with POST method, PHP to write to file'),
+(@msw, 'Write SQL queries to track programme attendance: total attendees per session, absentees, and completion rate.', 'Easy', 'COUNT, GROUP BY session_id, calculate (attended/total)*100');
+
+INSERT INTO skills (course_id, skill_name, skill_type) VALUES
+(@msw, 'Casework & Counselling', 'Technical'), (@msw, 'Community Development', 'Technical'),
+(@msw, 'Social Research Methods', 'Technical'), (@msw, 'Report & Documentation Writing', 'Technical'),
+(@msw, 'NGO Programme Management', 'Technical'), (@msw, 'MS Office', 'Technical'),
+(@msw, 'Empathy & Active Listening', 'Soft'), (@msw, 'Communication', 'Soft'),
+(@msw, 'Leadership', 'Soft'), (@msw, 'Crisis Intervention', 'Technical');
+
+INSERT INTO ats_keywords (course_id, keyword) VALUES
+(@msw,'social work'),(@msw,'community development'),(@msw,'casework'),(@msw,'counselling'),
+(@msw,'ngo'),(@msw,'social research'),(@msw,'field work'),(@msw,'programme management'),
+(@msw,'empathy'),(@msw,'communication'),(@msw,'documentation'),(@msw,'report writing'),
+(@msw,'crisis intervention'),(@msw,'beneficiary management'),(@msw,'leadership');
+
+INSERT INTO companies (company_name, role, salary, type, stream) VALUES
+('CRY India', 'Programme Officer', '₹3–4.5 LPA', 'Off-Campus', 'arts'),
+('UNICEF India', 'Programme Associate (Internship→Full time)', '₹3.5–5 LPA', 'Off-Campus', 'arts'),
+('Aga Khan Foundation', 'Field Coordinator', '₹3–4 LPA', 'Off-Campus', 'arts');
+
+-- ============================================================
+-- 5. M.Sc. Plant Biology & Plant Biotechnology  →  MSPB  (Science)
+-- ============================================================
+INSERT INTO courses (course_name, short_name) VALUES ('M.Sc. Plant Biology & Plant Biotechnology', 'MSPB');
+SET @mspb = LAST_INSERT_ID();
+
+INSERT INTO hr_questions (course_id, question) VALUES
+(@mspb, 'Tell me about yourself and your research interests in plant biotechnology.'),
+(@mspb, 'Describe your M.Sc. dissertation or major research project.'),
+(@mspb, 'What advanced lab techniques have you mastered at PG level?'),
+(@mspb, 'How do you handle failed experiments and what do you learn from them?'),
+(@mspb, 'What is your long-term vision in plant science research or industry?');
+
+INSERT INTO gd_topics (course_id, topic, stream) VALUES
+(@mspb, 'CRISPR gene editing in crops: scientific potential vs ethical concerns', 'science'),
+(@mspb, 'Climate-resilient crops: biotechnology as the answer to food security', 'science'),
+(@mspb, 'Intellectual property rights in plant biotechnology: who owns seeds?', 'science'),
+(@mspb, 'Should India fast-track approval of GM crops? Pros and cons', 'science'),
+(@mspb, 'Plant-based pharmaceuticals: the future of drug development?', 'science');
+
+INSERT INTO mock_interview_questions (course_id, question) VALUES
+(@mspb, 'Walk me through your dissertation research — methodology, findings, and challenges.'),
+(@mspb, 'Explain the difference between stable and transient gene expression in plants.'),
+(@mspb, 'What bioinformatics tools did you use in your research and for what purpose?'),
+(@mspb, 'How does CRISPR-Cas9 differ from traditional plant breeding?'),
+(@mspb, 'Describe an advanced molecular technique you have hands-on experience with.');
+
+INSERT INTO aptitude_questions (course_id, question, answer, topic) VALUES
+(@mspb, 'What is the copy number of chloroplast DNA in a typical plant cell?', '100–1000 copies', 'Molecular Plant Biology'),
+(@mspb, 'Which plant growth regulator promotes fruit ripening?', 'Ethylene', 'Plant Physiology'),
+(@mspb, 'If a diploid plant has 24 chromosomes, how many chromosomes does its pollen have?', '12 chromosomes', 'Genetics'),
+(@mspb, 'Which technique separates proteins based on size and charge?', '2D gel electrophoresis (2-DE)', 'Proteomics'),
+(@mspb, 'What is the Ti plasmid used for in plant biotechnology?', 'Transfer DNA (T-DNA) into plant cells for genetic transformation via Agrobacterium', 'Genetic Engineering');
+
+INSERT INTO technical_questions (course_id, question) VALUES
+(@mspb, 'Explain the steps of Agrobacterium-mediated transformation in detail.'),
+(@mspb, 'What is RNA interference (RNAi) and how is it applied in plant protection?'),
+(@mspb, 'Describe the principle of two-hybrid screening and its application in plant research.'),
+(@mspb, 'What are secondary metabolites in plants and what is their industrial significance?'),
+(@mspb, 'Explain the concept of plant-based bioreactors for pharmaceutical protein production.');
+
+INSERT INTO coding_problems (course_id, problem, difficulty, hint) VALUES
+(@mspb, 'Write Python code to perform multiple sequence alignment on 3 plant gene sequences using Biopython.', 'Hard', 'from Bio.Align import PairwiseAligner or use Bio.pairwise2'),
+(@mspb, 'Parse GenBank file format and extract gene annotations using Biopython.', 'Medium', 'from Bio import SeqIO; SeqIO.parse(file, "genbank")'),
+(@mspb, 'Write a Python script to BLAST a sequence against NCBI and retrieve top 5 hits.', 'Hard', 'from Bio.Blast import NCBIWWW, NCBIXML; qblast then parse'),
+(@mspb, 'Create a heatmap of gene expression data (10 genes × 5 conditions) using seaborn.', 'Medium', 'Use seaborn.heatmap() with a pandas DataFrame'),
+(@mspb, 'Write Python to calculate phylogenetic distance between DNA sequences using Hamming distance.', 'Medium', 'Compare character by character; count mismatches / total length');
+
+INSERT INTO skills (course_id, skill_name, skill_type) VALUES
+(@mspb, 'Advanced Molecular Biology (PCR, Western Blot, CRISPR)', 'Technical'),
+(@mspb, 'Plant Tissue Culture & Transformation', 'Technical'),
+(@mspb, 'Bioinformatics (BLAST, MEGA, R)', 'Technical'),
+(@mspb, 'Flow Cytometry', 'Technical'), (@mspb, 'Proteomics & Metabolomics Basics', 'Technical'),
+(@mspb, 'Scientific Writing & Publication', 'Technical'), (@mspb, 'Critical Thinking', 'Soft'),
+(@mspb, 'Research Design', 'Technical'), (@mspb, 'Teamwork', 'Soft'), (@mspb, 'Communication', 'Soft');
+
+INSERT INTO ats_keywords (course_id, keyword) VALUES
+(@mspb,'crispr'),(@mspb,'genetic transformation'),(@mspb,'bioinformatics'),
+(@mspb,'molecular biology'),(@mspb,'plant tissue culture'),(@mspb,'western blot'),
+(@mspb,'pcr'),(@mspb,'gene expression'),(@mspb,'rna interference'),
+(@mspb,'proteomics'),(@mspb,'biopython'),(@mspb,'research'),
+(@mspb,'scientific writing'),(@mspb,'sequencing'),(@mspb,'phylogenetics');
+
+-- ============================================================
+-- 6. M.Sc. Biostatistics  →  MSBIO  (Science)
+-- ============================================================
+INSERT INTO courses (course_name, short_name) VALUES ('M.Sc. Biostatistics', 'MSBIO');
+SET @msbio = LAST_INSERT_ID();
+
+INSERT INTO hr_questions (course_id, question) VALUES
+(@msbio, 'Tell me about yourself and your interest in biostatistics.'),
+(@msbio, 'Describe a research project where you applied biostatistical methods.'),
+(@msbio, 'What software tools are you proficient in for biostatistical analysis?'),
+(@msbio, 'How would you explain a complex statistical result to a non-statistician?'),
+(@msbio, 'What are your career goals in biostatistics — clinical trials, public health, or research?');
+
+INSERT INTO gd_topics (course_id, topic, stream) VALUES
+(@msbio, 'Role of biostatistics in clinical trial design and drug approval.', 'science'),
+(@msbio, 'Statistical significance vs clinical significance: are we misinterpreting p-values?', 'science'),
+(@msbio, 'AI in epidemiology: will machine learning replace biostatisticians?', 'science'),
+(@msbio, 'Ethical challenges in collecting and using patient data for research.', 'science'),
+(@msbio, 'COVID-19 data modelling: what did biostatistics teach us?', 'science');
+
+INSERT INTO mock_interview_questions (course_id, question) VALUES
+(@msbio, 'Explain the difference between parametric and non-parametric tests. When would you use each?'),
+(@msbio, 'Describe the phases of a clinical trial and the biostatistician''s role in each.'),
+(@msbio, 'What is survival analysis and when is the Kaplan-Meier curve used?'),
+(@msbio, 'How do you calculate sample size for a clinical study?'),
+(@msbio, 'Describe how you would handle data quality issues in a multi-centre clinical trial dataset.');
+
+INSERT INTO aptitude_questions (course_id, question, answer, topic) VALUES
+(@msbio, 'A clinical trial requires 95% confidence and 80% power. With an expected difference of 5 and SD of 10, what determines sample size?', 'n = 2(Zα/2 + Zβ)² × σ²/δ² — use the formula with Z values 1.96 and 0.84', 'Sample Size'),
+(@msbio, 'The sensitivity of a test is 90% and specificity is 85%. If prevalence is 10%, what is the PPV?', 'PPV = (0.9×0.1)/[(0.9×0.1)+(0.15×0.9)] ≈ 40%', 'Diagnostic Statistics'),
+(@msbio, 'What is the hazard ratio of 2.0 in survival analysis?', 'The risk of the event occurring is twice as high in one group vs the other', 'Survival Analysis'),
+(@msbio, 'Odds of disease in exposed group = 3:1, in unexposed = 1:3. What is the odds ratio?', 'OR = (3×3)/(1×1) = 9', 'Epidemiology'),
+(@msbio, 'A study found r = 0.85 between drug dose and response. What does this indicate?', 'Strong positive correlation between drug dose and response', 'Correlation');
+
+INSERT INTO technical_questions (course_id, question) VALUES
+(@msbio, 'Explain the intent-to-treat (ITT) vs per-protocol analysis in clinical trials.'),
+(@msbio, 'What is a logistic regression model and how is it used in biomedical research?'),
+(@msbio, 'Describe the Kaplan-Meier survival curve and the log-rank test.'),
+(@msbio, 'What is multiple testing correction? Explain Bonferroni correction.'),
+(@msbio, 'What is the difference between random effects and fixed effects models in meta-analysis?');
+
+INSERT INTO coding_problems (course_id, problem, difficulty, hint) VALUES
+(@msbio, 'Perform a Kaplan-Meier survival analysis on patient data using Python (lifelines library).', 'Hard', 'from lifelines import KaplanMeierFitter; fit with duration and event columns'),
+(@msbio, 'Calculate sensitivity, specificity, PPV, and NPV from a 2x2 contingency table in Python.', 'Medium', 'TP/(TP+FN), TN/(TN+FP), TP/(TP+FP), TN/(TN+FN)'),
+(@msbio, 'Run logistic regression on a clinical dataset and interpret odds ratios using Python (statsmodels).', 'Medium', 'import statsmodels.api as sm; use Logit model, exp(coef) for OR'),
+(@msbio, 'Perform meta-analysis forest plot using R or Python on published study effect sizes.', 'Hard', 'In R: use meta package; metagen() for generic inverse variance method'),
+(@msbio, 'Write Python code to compute sample size for a two-proportion z-test.', 'Medium', 'n = (Z_alpha + Z_beta)² * (p1(1-p1)+p2(1-p2)) / (p1-p2)²');
+
+INSERT INTO skills (course_id, skill_name, skill_type) VALUES
+(@msbio, 'SAS / SPSS / R / Stata', 'Technical'), (@msbio, 'Clinical Trial Statistics', 'Technical'),
+(@msbio, 'Survival Analysis', 'Technical'), (@msbio, 'Epidemiological Methods', 'Technical'),
+(@msbio, 'Python (SciPy, lifelines)', 'Technical'), (@msbio, 'Data Management', 'Technical'),
+(@msbio, 'Scientific Writing', 'Technical'), (@msbio, 'Analytical Thinking', 'Soft'),
+(@msbio, 'Communication', 'Soft'), (@msbio, 'Attention to Detail', 'Soft');
+
+INSERT INTO ats_keywords (course_id, keyword) VALUES
+(@msbio,'biostatistics'),(@msbio,'clinical trials'),(@msbio,'sas'),(@msbio,'spss'),
+(@msbio,'r programming'),(@msbio,'survival analysis'),(@msbio,'epidemiology'),
+(@msbio,'logistic regression'),(@msbio,'meta-analysis'),(@msbio,'data analysis'),
+(@msbio,'sample size'),(@msbio,'python'),(@msbio,'scientific writing'),
+(@msbio,'stata'),(@msbio,'research methodology');
+
+INSERT INTO companies (company_name, role, salary, type, stream) VALUES
+('IQVIA', 'Biostatistician I', '₹6–9 LPA', 'Off-Campus', 'science'),
+('Parexel', 'Statistical Programmer', '₹5–8 LPA', 'Off-Campus', 'science'),
+('Quintiles', 'Clinical Data Analyst', '₹5–7 LPA', 'Off-Campus', 'science');
+
+-- ============================================================
+-- 7. M.Sc. Physics  →  MSPHY  (Science) [PG — different from UG PHYSICS]
+-- ============================================================
+INSERT INTO courses (course_name, short_name) VALUES ('M.Sc. Physics', 'MSPHY');
+SET @msphy = LAST_INSERT_ID();
+
+INSERT INTO hr_questions (course_id, question) VALUES
+(@msphy, 'Tell me about yourself and your area of specialisation in Physics.'),
+(@msphy, 'Describe your M.Sc. project or dissertation in simple terms.'),
+(@msphy, 'What attracted you to a career in physics research or industry?'),
+(@msphy, 'How do you approach complex physics problems methodically?'),
+(@msphy, 'What are your career aspirations — research, academia, or industry?');
+
+INSERT INTO gd_topics (course_id, topic, stream) VALUES
+(@msphy, 'Quantum computing: will it make classical computing obsolete?', 'science'),
+(@msphy, 'Nuclear energy: India''s path to energy independence or safety risk?', 'science'),
+(@msphy, 'Dark matter and dark energy: do we need new physics to explain the universe?', 'science'),
+(@msphy, 'Is India investing enough in fundamental physics research?', 'science'),
+(@msphy, 'Space exploration: scientific necessity or wasteful expenditure?', 'science');
+
+INSERT INTO mock_interview_questions (course_id, question) VALUES
+(@msphy, 'Explain your M.Sc. dissertation research and its significance in 3 minutes.'),
+(@msphy, 'What is the Heisenberg Uncertainty Principle and what does it imply?'),
+(@msphy, 'Describe the experimental techniques you used in your lab work.'),
+(@msphy, 'How would you explain Schrödinger''s equation to an undergraduate student?'),
+(@msphy, 'What is the significance of the Standard Model of particle physics?');
+
+INSERT INTO aptitude_questions (course_id, question, answer, topic) VALUES
+(@msphy, 'A photon has wavelength 500 nm. What is its energy? (h=6.626×10⁻³⁴ Js, c=3×10⁸ m/s)', 'E = hc/λ = 3.98×10⁻¹⁹ J', 'Quantum Physics'),
+(@msphy, 'An electron accelerated through 100V potential difference. Find its kinetic energy in eV.', '100 eV', 'Electrodynamics'),
+(@msphy, 'A wire carries 5A and is placed in a magnetic field of 0.2T perpendicular to it. If length is 0.5m, find force.', 'F = BIL = 0.5 N', 'Electromagnetism'),
+(@msphy, 'The half-life of a radioactive isotope is 14 days. After 42 days, what fraction remains?', '1/8', 'Nuclear Physics'),
+(@msphy, 'A particle moves with velocity 0.6c. Calculate its relativistic mass factor (γ).', 'γ = 1/√(1-0.36) = 1/0.8 = 1.25', 'Special Relativity');
+
+INSERT INTO technical_questions (course_id, question) VALUES
+(@msphy, 'Explain the Bose-Einstein condensate and the conditions required to achieve it.'),
+(@msphy, 'Describe the quantum Hall effect and its significance.'),
+(@msphy, 'What is superconductivity? Explain BCS theory briefly.'),
+(@msphy, 'What is X-ray diffraction (XRD) and how is it used to determine crystal structure?'),
+(@msphy, 'Explain the double-slit experiment and what it demonstrates about the nature of light.');
+
+INSERT INTO coding_problems (course_id, problem, difficulty, hint) VALUES
+(@msphy, 'Write Python to simulate projectile motion and plot the trajectory.', 'Easy', 'Use x=v0*cos(θ)*t, y=v0*sin(θ)*t-0.5*g*t²; matplotlib to plot'),
+(@msphy, 'Numerically solve the 1D Schrödinger equation for a particle in a box using Python.', 'Hard', 'Use scipy.linalg.eigh; set up Hamiltonian matrix with finite differences'),
+(@msphy, 'Plot the wave function solutions for a quantum harmonic oscillator using SciPy.', 'Hard', 'Use scipy.special.hermite; plot Hermite polynomials × Gaussian'),
+(@msphy, 'Write Python to simulate radioactive decay with half-life and plot N vs time.', 'Easy', 'N(t) = N0 * (0.5)^(t/half_life); use numpy and matplotlib'),
+(@msphy, 'Fit an experimental dataset to a theoretical curve using Python (scipy.optimize.curve_fit).', 'Medium', 'Define model function, call curve_fit(f, xdata, ydata); extract popt');
+
+INSERT INTO skills (course_id, skill_name, skill_type) VALUES
+(@msphy, 'Quantum Mechanics', 'Technical'), (@msphy, 'Experimental Physics (XRD, Spectroscopy)', 'Technical'),
+(@msphy, 'MATLAB / Python (NumPy, SciPy)', 'Technical'), (@msphy, 'Data Analysis', 'Technical'),
+(@msphy, 'LaTeX (Scientific Writing)', 'Technical'), (@msphy, 'Mathematical Modeling', 'Technical'),
+(@msphy, 'Research Methodology', 'Technical'), (@msphy, 'Analytical Thinking', 'Soft'),
+(@msphy, 'Problem Solving', 'Soft'), (@msphy, 'Communication', 'Soft');
+
+INSERT INTO ats_keywords (course_id, keyword) VALUES
+(@msphy,'quantum mechanics'),(@msphy,'spectroscopy'),(@msphy,'xrd'),(@msphy,'matlab'),
+(@msphy,'python'),(@msphy,'data analysis'),(@msphy,'research'),(@msphy,'latex'),
+(@msphy,'semiconductor physics'),(@msphy,'optics'),(@msphy,'electrodynamics'),
+(@msphy,'computational physics'),(@msphy,'scientific writing'),(@msphy,'problem solving'),(@msphy,'numpy');
+
+-- ============================================================
+-- 8. M.Sc. Chemistry  →  MSCHEM  (Science) [PG — different from UG CHEM]
+-- ============================================================
+INSERT INTO courses (course_name, short_name) VALUES ('M.Sc. Chemistry', 'MSCHEM');
+SET @mschem = LAST_INSERT_ID();
+
+INSERT INTO hr_questions (course_id, question) VALUES
+(@mschem, 'Tell me about yourself and your specialisation area in Chemistry.'),
+(@mschem, 'Describe your M.Sc. research project and its industry relevance.'),
+(@mschem, 'What analytical chemistry instruments have you worked with?'),
+(@mschem, 'How do you ensure accuracy and reproducibility in your experiments?'),
+(@mschem, 'What are your career goals — pharma industry, research, or teaching?');
+
+INSERT INTO gd_topics (course_id, topic, stream) VALUES
+(@mschem, 'Green chemistry: is the pharmaceutical industry doing enough?', 'science'),
+(@mschem, 'Plastic pollution: can chemistry provide a sustainable solution?', 'science'),
+(@mschem, 'Drug resistance: the chemistry behind the antibiotic crisis', 'science'),
+(@mschem, 'Nuclear chemistry and its role in cancer treatment', 'science'),
+(@mschem, 'Is India''s chemical industry investing adequately in R&D?', 'science');
+
+INSERT INTO mock_interview_questions (course_id, question) VALUES
+(@mschem, 'Walk me through your M.Sc. dissertation research — what problem did you solve?'),
+(@mschem, 'What is HPLC and when would you use it over GC?'),
+(@mschem, 'Explain the principle of NMR spectroscopy and what it tells you about a molecule.'),
+(@mschem, 'How do you validate an analytical method according to ICH guidelines?'),
+(@mschem, 'What is the concept of green chemistry and how did you apply it in your research?');
+
+INSERT INTO aptitude_questions (course_id, question, answer, topic) VALUES
+(@mschem, 'A 0.5 M solution of NaCl is prepared in 2L of water. How many moles of NaCl are used?', '1 mole', 'Analytical Chemistry'),
+(@mschem, 'The pH of a 0.001 M HCl solution is?', 'pH = -log(0.001) = 3', 'Physical Chemistry'),
+(@mschem, 'How many grams of NaOH (MW=40) are needed to prepare 500mL of a 2M solution?', '40g', 'Solution Chemistry'),
+(@mschem, 'What is the oxidation state of Cr in K₂Cr₂O₇?', '+6', 'Inorganic Chemistry'),
+(@mschem, 'The rate constant of a first-order reaction is 0.05 min⁻¹. What is the half-life?', 't₁/₂ = 0.693/k = 13.86 min', 'Physical Chemistry');
+
+INSERT INTO technical_questions (course_id, question) VALUES
+(@mschem, 'Explain the principle and applications of HPLC in pharmaceutical analysis.'),
+(@mschem, 'What is the difference between primary, secondary, and tertiary structure of proteins?'),
+(@mschem, 'Describe the principle of mass spectrometry and its uses in structure elucidation.'),
+(@mschem, 'What is retrosynthetic analysis and how is it used in organic synthesis?'),
+(@mschem, 'Explain the ICH Q2(R1) guidelines for analytical method validation.');
+
+INSERT INTO coding_problems (course_id, problem, difficulty, hint) VALUES
+(@mschem, 'Write Python to plot a UV-Vis absorption spectrum from wavelength vs absorbance data.', 'Easy', 'Read CSV with pandas; plot wavelength on X axis, absorbance on Y'),
+(@mschem, 'Parse an NMR spectrum data file and identify peak positions using Python (scipy.signal.find_peaks).', 'Medium', 'Use scipy.signal.find_peaks on the intensity array'),
+(@mschem, 'Create a titration curve (pH vs volume of NaOH added) simulation in Python.', 'Medium', 'Calculate pH at each volume step; plot using matplotlib'),
+(@mschem, 'Write Python to draw a molecular structure using RDKit and export as image.', 'Hard', 'from rdkit import Chem; from rdkit.Chem import Draw; MolFromSmiles'),
+(@mschem, 'Perform Beer-Lambert law calculations — given ε, c, l, calculate absorbance and plot calibration curve.', 'Easy', 'A = ε × c × l; vary c, compute A, plot with matplotlib');
+
+INSERT INTO skills (course_id, skill_name, skill_type) VALUES
+(@mschem, 'HPLC / GC / LC-MS', 'Technical'), (@mschem, 'NMR & IR Spectroscopy', 'Technical'),
+(@mschem, 'Organic Synthesis', 'Technical'), (@mschem, 'Analytical Method Validation (ICH)', 'Technical'),
+(@mschem, 'Python / MATLAB for Data Analysis', 'Technical'), (@mschem, 'ChemDraw / RDKit', 'Technical'),
+(@mschem, 'Good Laboratory Practice (GLP)', 'Technical'), (@mschem, 'Scientific Writing', 'Technical'),
+(@mschem, 'Attention to Detail', 'Soft'), (@mschem, 'Communication', 'Soft');
+
+INSERT INTO ats_keywords (course_id, keyword) VALUES
+(@mschem,'hplc'),(@mschem,'nmr spectroscopy'),(@mschem,'organic synthesis'),
+(@mschem,'analytical chemistry'),(@mschem,'mass spectrometry'),(@mschem,'glp'),
+(@mschem,'method validation'),(@mschem,'python'),(@mschem,'research'),
+(@mschem,'good laboratory practice'),(@mschem,'pharmaceutical chemistry'),
+(@mschem,'ic guidelines'),(@mschem,'scientific writing'),(@mschem,'chemdraw'),(@mschem,'titration');
+
+INSERT INTO companies (company_name, role, salary, type, stream) VALUES
+('Cipla', 'Research Associate - Chemistry', '₹4–6 LPA', 'Off-Campus', 'science'),
+('Dr. Reddy''s Laboratories', 'Analytical Chemist', '₹4.5–6.5 LPA', 'Off-Campus', 'science'),
+('Sun Pharma', 'QC Chemist', '₹3.5–5.5 LPA', 'Off-Campus', 'science');
+
+-- ============================================================
+-- 9. M.Sc. Home Science-Food Science Nutrition & Dietetics  →  MSHSN  (Science)
+-- ============================================================
+INSERT INTO courses (course_name, short_name) VALUES ('M.Sc. Home Science-Food Science Nutrition and Dietetics', 'MSHSN');
+SET @mshsn = LAST_INSERT_ID();
+
+INSERT INTO hr_questions (course_id, question) VALUES
+(@mshsn, 'Tell me about yourself and your passion for food science and nutrition.'),
+(@mshsn, 'Describe your research project in food science or clinical nutrition.'),
+(@mshsn, 'How would you handle a patient who is resistant to dietary recommendations?'),
+(@mshsn, 'What food safety regulations are you familiar with?'),
+(@mshsn, 'Where do you see yourself contributing in the food and nutrition industry in 5 years?');
+
+INSERT INTO gd_topics (course_id, topic, stream) VALUES
+(@mshsn, 'Ultra-processed foods: are food companies responsible for the obesity epidemic?', 'science'),
+(@mshsn, 'Plant-based diets vs omnivore diets: nutritional adequacy debate', 'science'),
+(@mshsn, 'Food labelling regulations: are consumers being misled?', 'science'),
+(@mshsn, 'Functional foods and nutraceuticals: science or marketing?', 'science'),
+(@mshsn, 'India''s malnutrition crisis: can food technology provide sustainable solutions?', 'science');
+
+INSERT INTO mock_interview_questions (course_id, question) VALUES
+(@mshsn, 'Design a therapeutic diet for a Type 2 diabetic patient with hypertension.'),
+(@mshsn, 'Explain the Maillard reaction and its significance in food processing.'),
+(@mshsn, 'What is HACCP and how would you implement it in a food production facility?'),
+(@mshsn, 'Describe the bioavailability of iron and factors that enhance or inhibit it.'),
+(@mshsn, 'How would you assess nutritional status in a community setting?');
+
+INSERT INTO aptitude_questions (course_id, question, answer, topic) VALUES
+(@mshsn, 'A patient needs 2000 kcal/day. If 55% should come from carbohydrates, how many grams of carbs are needed? (1g carb = 4 kcal)', '275g', 'Clinical Nutrition'),
+(@mshsn, 'Calculate the BMI of a person weighing 70kg and height 1.70m.', 'BMI = 70/1.70² = 24.2 (Normal)', 'Anthropometry'),
+(@mshsn, 'A food item has 10g fat, 5g protein, and 30g carbs. Calculate total calories.', '(10×9)+(5×4)+(30×4) = 90+20+120 = 230 kcal', 'Food Science'),
+(@mshsn, 'The water activity (aw) of a food is 0.85. Is it prone to mould growth?', 'Yes — moulds grow at aw > 0.80', 'Food Safety'),
+(@mshsn, 'If a recipe serves 8 and uses 500g flour, how much flour is needed for 12 servings?', '750g', 'Food Quantity Calculation');
+
+INSERT INTO technical_questions (course_id, question) VALUES
+(@mshsn, 'Explain the Maillard reaction and its effect on nutritional value of food.'),
+(@mshsn, 'What is water activity (aw) and why is it important in food preservation?'),
+(@mshsn, 'Describe the proximate analysis of foods (Weende analysis).'),
+(@mshsn, 'What are the FSSAI guidelines for food labelling in India?'),
+(@mshsn, 'Explain the role of dietary fibre in disease prevention.');
+
+INSERT INTO coding_problems (course_id, problem, difficulty, hint) VALUES
+(@mshsn, 'Write Python to calculate BMI and classify it (Underweight/Normal/Overweight/Obese) for a list of patients.', 'Easy', 'BMI = weight/height²; use if-elif for classification'),
+(@mshsn, 'Create a calorie counter program — input food items and quantities, output total macros and calories.', 'Easy', 'Store food database as dictionary; multiply by quantity'),
+(@mshsn, 'Analyse a dataset of food nutrition labels and find items exceeding WHO daily sodium limit (2300mg).', 'Easy', 'Use pandas; filter where sodium > 2300'),
+(@mshsn, 'Build a diet planner that generates a 7-day meal plan meeting specified calorie and macro targets.', 'Medium', 'Create food database; randomly select meals meeting constraints'),
+(@mshsn, 'Write SQL queries to track patient dietary intake vs recommended daily allowance (RDA).', 'Easy', 'SELECT patient_id, nutrient, SUM(intake), rda; compare using HAVING');
+
+INSERT INTO skills (course_id, skill_name, skill_type) VALUES
+(@mshsn, 'Clinical Nutrition & Dietetics', 'Technical'), (@mshsn, 'Food Science & Technology', 'Technical'),
+(@mshsn, 'HACCP & Food Safety (FSSAI)', 'Technical'), (@mshsn, 'Proximate Analysis', 'Technical'),
+(@mshsn, 'Diet Planning Software (Dietplan, Nutrifact)', 'Technical'), (@mshsn, 'MS Excel', 'Technical'),
+(@mshsn, 'Nutritional Assessment', 'Technical'), (@mshsn, 'Patient Counselling', 'Soft'),
+(@mshsn, 'Communication', 'Soft'), (@mshsn, 'Analytical Thinking', 'Soft');
+
+INSERT INTO ats_keywords (course_id, keyword) VALUES
+(@mshsn,'clinical nutrition'),(@mshsn,'dietetics'),(@mshsn,'food science'),
+(@mshsn,'haccp'),(@mshsn,'fssai'),(@mshsn,'nutritional assessment'),
+(@mshsn,'diet planning'),(@mshsn,'food safety'),(@mshsn,'patient counselling'),
+(@mshsn,'proximate analysis'),(@mshsn,'ms excel'),(@mshsn,'communication'),
+(@mshsn,'food technology'),(@mshsn,'therapeutic diet'),(@mshsn,'research');
+
+INSERT INTO companies (company_name, role, salary, type, stream) VALUES
+('Apollo Hospitals', 'Clinical Dietician (PG)', '₹4–6 LPA', 'Off-Campus', 'science'),
+('Nestlé India', 'Nutrition Specialist', '₹5–7 LPA', 'Off-Campus', 'science'),
+('ITC Foods', 'Food Technologist', '₹5–7 LPA', 'Off-Campus', 'science');
+
+-- ============================================================
+-- 10. M.Sc. Data Science and Artificial Intelligence  →  MSDAI  (Science)
+-- ============================================================
+INSERT INTO courses (course_name, short_name) VALUES ('M.Sc. Data Science and Artificial Intelligence', 'MSDAI');
+SET @msdai = LAST_INSERT_ID();
+
+INSERT INTO hr_questions (course_id, question) VALUES
+(@msdai, 'Tell me about yourself and your specialisation in Data Science and AI.'),
+(@msdai, 'Describe your most complex machine learning project from your PG course.'),
+(@msdai, 'How do you explain a machine learning model''s output to a non-technical stakeholder?'),
+(@msdai, 'What is your approach to handling imbalanced datasets?'),
+(@msdai, 'Where do you see the future of AI in the next 5 years and your role in it?');
+
+INSERT INTO gd_topics (course_id, topic, stream) VALUES
+(@msdai, 'Generative AI: transforming industries or threatening creative professions?', 'science'),
+(@msdai, 'AI bias and fairness: who is responsible for algorithmic discrimination?', 'science'),
+(@msdai, 'Large Language Models (LLMs): are they truly intelligent or just pattern matchers?', 'science'),
+(@msdai, 'AI regulation: should governments control the pace of AI development?', 'science'),
+(@msdai, 'AI in healthcare: will machines ever replace doctors?', 'science');
+
+INSERT INTO mock_interview_questions (course_id, question) VALUES
+(@msdai, 'Explain the bias-variance tradeoff and how you manage it in model development.'),
+(@msdai, 'What is the difference between bagging and boosting? Give examples.'),
+(@msdai, 'How do you evaluate a classification model beyond just accuracy?'),
+(@msdai, 'Describe a real-world project where you applied deep learning. What architecture did you use?'),
+(@msdai, 'Explain the attention mechanism in transformers and why it revolutionised NLP.');
+
+INSERT INTO aptitude_questions (course_id, question, answer, topic) VALUES
+(@msdai, 'A model has precision=0.8 and recall=0.6. What is the F1 score?', 'F1 = 2×(0.8×0.6)/(0.8+0.6) = 0.686', 'Model Evaluation'),
+(@msdai, 'In gradient descent, if learning rate is too high, what happens?', 'The model may overshoot the minimum and fail to converge', 'Optimization'),
+(@msdai, 'A dataset has 95% class A and 5% class B. Which metric is most appropriate to evaluate model performance?', 'F1-score, AUC-ROC, or Precision-Recall curve (not accuracy — it is misleading for imbalanced data)', 'Imbalanced Data'),
+(@msdai, 'How many parameters does a fully connected layer with 128 input neurons and 64 output neurons have?', '128×64 weights + 64 biases = 8256 parameters', 'Deep Learning'),
+(@msdai, 'What does an AUC-ROC value of 0.5 indicate about a classifier?', 'It performs no better than random chance', 'Model Evaluation');
+
+INSERT INTO technical_questions (course_id, question) VALUES
+(@msdai, 'Explain how a Random Forest handles overfitting compared to a single Decision Tree.'),
+(@msdai, 'What is the difference between L1 and L2 regularization? When would you choose each?'),
+(@msdai, 'Describe the architecture of a Convolutional Neural Network (CNN) and its use case.'),
+(@msdai, 'What is transfer learning and how does it reduce training requirements?'),
+(@msdai, 'Explain SHAP values and why interpretability matters in AI systems.');
+
+INSERT INTO coding_problems (course_id, problem, difficulty, hint) VALUES
+(@msdai, 'Build a binary classification model using Random Forest on the Titanic dataset and evaluate with cross-validation.', 'Medium', 'Use sklearn RandomForestClassifier; StratifiedKFold; report F1 and AUC'),
+(@msdai, 'Implement a neural network from scratch (no keras) with 1 hidden layer using NumPy.', 'Hard', 'Forward: Z=XW+b, A=sigmoid(Z); Backward: compute gradients, update weights'),
+(@msdai, 'Fine-tune a pre-trained BERT model for sentiment classification using HuggingFace transformers.', 'Hard', 'from transformers import BertForSequenceClassification, Trainer, TrainingArguments'),
+(@msdai, 'Train a CNN on CIFAR-10 and achieve at least 75% accuracy using TensorFlow/Keras.', 'Hard', 'Use Conv2D, MaxPooling2D, Dense layers; data augmentation; Adam optimizer'),
+(@msdai, 'Build an end-to-end ML pipeline: data cleaning → feature engineering → model training → evaluation using sklearn Pipeline.', 'Medium', 'Use sklearn Pipeline with ColumnTransformer, StandardScaler, and classifier');
+
+INSERT INTO skills (course_id, skill_name, skill_type) VALUES
+(@msdai, 'Machine Learning (sklearn, XGBoost)', 'Technical'), (@msdai, 'Deep Learning (TensorFlow, PyTorch)', 'Technical'),
+(@msdai, 'NLP (NLTK, spaCy, HuggingFace)', 'Technical'), (@msdai, 'Python (Pandas, NumPy, Matplotlib)', 'Technical'),
+(@msdai, 'SQL & Big Data (Spark basics)', 'Technical'), (@msdai, 'Model Deployment (Flask, FastAPI)', 'Technical'),
+(@msdai, 'MLOps Basics', 'Technical'), (@msdai, 'Statistical Analysis', 'Technical'),
+(@msdai, 'Communication', 'Soft'), (@msdai, 'Problem Solving', 'Soft');
+
+INSERT INTO ats_keywords (course_id, keyword) VALUES
+(@msdai,'machine learning'),(@msdai,'deep learning'),(@msdai,'tensorflow'),
+(@msdai,'pytorch'),(@msdai,'natural language processing'),(@msdai,'python'),
+(@msdai,'data science'),(@msdai,'artificial intelligence'),(@msdai,'sql'),
+(@msdai,'model deployment'),(@msdai,'mlops'),(@msdai,'neural networks'),
+(@msdai,'sklearn'),(@msdai,'transformers'),(@msdai,'data visualization');
+
+INSERT INTO companies (company_name, role, salary, type, stream) VALUES
+('Google India', 'Data Scientist (L3)', '₹18–25 LPA', 'Off-Campus', 'science'),
+('Amazon', 'Applied Scientist', '₹15–22 LPA', 'Off-Campus', 'science'),
+('Wipro AI360', 'ML Engineer', '₹8–12 LPA', 'Off-Campus', 'science');
+
+-- ============================================================
+-- 11. M.A. Economics  →  MAECO  (Arts)
+-- ============================================================
+INSERT INTO courses (course_name, short_name) VALUES ('M.A. Economics', 'MAECO');
+SET @maeco = LAST_INSERT_ID();
+
+INSERT INTO hr_questions (course_id, question) VALUES
+(@maeco, 'Tell me about yourself and your specialisation area in Economics.'),
+(@maeco, 'How do you apply economic theory to current real-world policy problems?'),
+(@maeco, 'Describe a research paper or project you completed in your M.A.'),
+(@maeco, 'What econometric software are you familiar with?'),
+(@maeco, 'What is your career goal — economic policy, research, banking, or academia?');
+
+INSERT INTO gd_topics (course_id, topic, stream) VALUES
+(@maeco, 'Universal Basic Income: viable economic policy or idealistic dream?', 'arts'),
+(@maeco, 'India''s economic growth: is it inclusive or benefiting only the top percentile?', 'arts'),
+(@maeco, 'Cryptocurrency: threat to sovereign monetary policy or financial innovation?', 'arts'),
+(@maeco, 'Inflation targeting vs employment targeting: which should RBI prioritise?', 'arts'),
+(@maeco, 'Privatisation of public sector enterprises: economic necessity or political decision?', 'arts');
+
+INSERT INTO mock_interview_questions (course_id, question) VALUES
+(@maeco, 'Explain the Keynesian vs Classical view of economic stabilisation policy.'),
+(@maeco, 'What is the Phillips curve and has it held true in recent decades?'),
+(@maeco, 'Describe your dissertation topic and the econometric methodology you used.'),
+(@maeco, 'How would you design a study to evaluate the impact of MGNREGS on rural wages?'),
+(@maeco, 'What is the Gini coefficient and what does India''s current value tell us?');
+
+INSERT INTO aptitude_questions (course_id, question, answer, topic) VALUES
+(@maeco, 'If GDP growth is 7% and population growth is 2%, what is per capita GDP growth?', '5% (approximately)', 'Macroeconomics'),
+(@maeco, 'Price elasticity of demand = -1.5. If price rises by 10%, by what % does quantity demanded change?', '-15%', 'Microeconomics'),
+(@maeco, 'If MPC = 0.8, what is the Keynesian multiplier?', 'Multiplier = 1/(1-MPC) = 1/0.2 = 5', 'Macroeconomics'),
+(@maeco, 'A country has exports of ₹500Cr and imports of ₹650Cr. What is the trade balance?', 'Trade deficit of ₹150Cr', 'International Economics'),
+(@maeco, 'Real interest rate = 3%, inflation = 5%. What is the nominal interest rate?', '8% (Fisher equation: nominal = real + inflation)', 'Monetary Economics');
+
+INSERT INTO technical_questions (course_id, question) VALUES
+(@maeco, 'Explain the concept of market failure and the four main types.'),
+(@maeco, 'What is the difference between monetary policy and fiscal policy? How do they interact?'),
+(@maeco, 'Describe the theory of comparative advantage and its relevance to India''s trade policy.'),
+(@maeco, 'What is cointegration in time series econometrics and why is it important?'),
+(@maeco, 'Explain the concept of moral hazard and adverse selection with economic examples.');
+
+INSERT INTO coding_problems (course_id, problem, difficulty, hint) VALUES
+(@maeco, 'Plot India''s GDP growth rate over 10 years using Python and identify recession years.', 'Easy', 'Use pandas DataFrame with year/GDP; matplotlib plot; mark negative growth bars red'),
+(@maeco, 'Run an OLS regression in Python (statsmodels) on inflation and unemployment data to test the Phillips curve.', 'Medium', 'import statsmodels.api as sm; sm.OLS(y,X).fit(); print summary'),
+(@maeco, 'Perform a Granger causality test between two economic time series in Python.', 'Hard', 'from statsmodels.tsa.stattools import grangercausalitytests; test with maxlag'),
+(@maeco, 'Build a simple supply-demand equilibrium calculator — input supply and demand functions, output equilibrium price and quantity.', 'Easy', 'Solve two linear equations; Qd=Qs gives equilibrium P'),
+(@maeco, 'Visualise state-wise poverty headcount ratio in India as a choropleth map using Python.', 'Hard', 'Use geopandas + plotly or folium; merge poverty data with shapefile');
+
+INSERT INTO skills (course_id, skill_name, skill_type) VALUES
+(@maeco, 'Econometrics (OLS, IV, Panel Data)', 'Technical'), (@maeco, 'Stata / R / EViews', 'Technical'),
+(@maeco, 'Python (pandas, statsmodels)', 'Technical'), (@maeco, 'Macroeconomic Policy Analysis', 'Technical'),
+(@maeco, 'Research Methodology', 'Technical'), (@maeco, 'MS Excel (Advanced)', 'Technical'),
+(@maeco, 'Economic Policy Writing', 'Technical'), (@maeco, 'Analytical Thinking', 'Soft'),
+(@maeco, 'Communication', 'Soft'), (@maeco, 'Critical Thinking', 'Soft');
+
+INSERT INTO ats_keywords (course_id, keyword) VALUES
+(@maeco,'econometrics'),(@maeco,'stata'),(@maeco,'r programming'),(@maeco,'python'),
+(@maeco,'macroeconomics'),(@maeco,'microeconomics'),(@maeco,'policy analysis'),
+(@maeco,'data analysis'),(@maeco,'research methodology'),(@maeco,'ms excel'),
+(@maeco,'monetary policy'),(@maeco,'fiscal policy'),(@maeco,'regression analysis'),
+(@maeco,'economic modeling'),(@maeco,'communication');
+
+INSERT INTO companies (company_name, role, salary, type, stream) VALUES
+('NITI Aayog', 'Research Officer (Economics)', '₹6–9 LPA', 'Off-Campus', 'arts'),
+('RBI', 'Research Officer', '₹7–10 LPA', 'Off-Campus', 'arts'),
+('McKinsey & Company', 'Business Analyst (Economics background)', '₹12–16 LPA', 'Off-Campus', 'arts');
+
+-- ============================================================
+-- 12. M.Sc. Counselling Psychology  →  MSCP  (Science)
+-- ============================================================
+INSERT INTO courses (course_name, short_name) VALUES ('M.Sc. Counselling Psychology', 'MSCP');
+SET @mscp = LAST_INSERT_ID();
+
+INSERT INTO hr_questions (course_id, question) VALUES
+(@mscp, 'Tell me about yourself and what drew you to counselling psychology.'),
+(@mscp, 'Describe your internship or clinical placement experience.'),
+(@mscp, 'How do you maintain professional boundaries with clients?'),
+(@mscp, 'What therapeutic approach do you primarily use and why?'),
+(@mscp, 'How do you take care of your own mental health while supporting others?');
+
+INSERT INTO gd_topics (course_id, topic, stream) VALUES
+(@mscp, 'Mental health stigma in India: are we making real progress?', 'science'),
+(@mscp, 'Is online therapy as effective as face-to-face counselling?', 'science'),
+(@mscp, 'Should mental health education be mandatory in schools?', 'science'),
+(@mscp, 'Burnout in healthcare workers: whose responsibility is prevention?', 'science'),
+(@mscp, 'AI-powered therapy apps: ethical concerns for the counselling profession', 'science');
+
+INSERT INTO mock_interview_questions (course_id, question) VALUES
+(@mscp, 'Describe a challenging counselling case (anonymised) and your therapeutic approach.'),
+(@mscp, 'How would you conduct an initial assessment interview with a new client experiencing anxiety?'),
+(@mscp, 'Explain the difference between CBT, DBT, and Person-Centred therapy.'),
+(@mscp, 'How do you handle a situation where a client discloses suicidal ideation?'),
+(@mscp, 'Describe how you would develop a treatment plan for a client with major depressive disorder.');
+
+INSERT INTO aptitude_questions (course_id, question, answer, topic) VALUES
+(@mscp, 'According to Maslow''s hierarchy, which need must be met before self-esteem needs?', 'Belongingness/Love needs', 'Personality Psychology'),
+(@mscp, 'A client scores 18 on the PHQ-9. What does this indicate?', 'Moderately severe depression (PHQ-9 score 15-19)', 'Clinical Assessment'),
+(@mscp, 'What is the difference between ego dystonic and ego syntonic conditions?', 'Ego dystonic: client experiences symptoms as foreign/distressing. Ego syntonic: symptoms feel consistent with self-image', 'Psychopathology'),
+(@mscp, 'A correlation of r = -0.70 between stress and life satisfaction means?', 'Strong negative correlation: higher stress associated with lower life satisfaction', 'Research Methods'),
+(@mscp, 'What is the primary mechanism of action in Cognitive Behavioural Therapy?', 'Identifying and restructuring maladaptive thoughts (cognitive distortions) that drive dysfunctional behaviour', 'Therapeutic Approaches');
+
+INSERT INTO technical_questions (course_id, question) VALUES
+(@mscp, 'Explain the biopsychosocial model of mental health and its clinical implications.'),
+(@mscp, 'What is the difference between schema therapy and standard CBT?'),
+(@mscp, 'Describe the process of creating a case conceptualisation in cognitive therapy.'),
+(@mscp, 'Explain Dialectical Behaviour Therapy (DBT) and its target population.'),
+(@mscp, 'What are the ethical obligations of a counsellor when facing confidentiality limits?');
+
+INSERT INTO coding_problems (course_id, problem, difficulty, hint) VALUES
+(@mscp, 'Write Python to score a PHQ-9 questionnaire (9 items, 0-3 each) and classify depression severity.', 'Easy', 'Sum all items; 0-4 None, 5-9 Mild, 10-14 Moderate, 15-19 Mod-Severe, 20+ Severe'),
+(@mscp, 'Analyse therapy outcome data — compare pre and post scores using paired t-test in Python.', 'Medium', 'from scipy.stats import ttest_rel; test pre vs post scores; check p < 0.05'),
+(@mscp, 'Create a session notes template in Python that auto-generates a structured client session report.', 'Easy', 'Prompt for client info, session summary, mood rating, goals; format and save to file'),
+(@mscp, 'Build a simple mood tracker app logic in Python — log daily mood (1-10), show weekly trend as line chart.', 'Easy', 'Store in list; use matplotlib to plot days vs mood score'),
+(@mscp, 'Perform sentiment analysis on anonymised client journal entries using Python (VADER or TextBlob).', 'Medium', 'from textblob import TextBlob or from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer');
+
+INSERT INTO skills (course_id, skill_name, skill_type) VALUES
+(@mscp, 'Therapeutic Techniques (CBT, DBT, Person-Centred)', 'Technical'),
+(@mscp, 'Psychological Assessment Tools (PHQ-9, GAD-7, MMSE)', 'Technical'),
+(@mscp, 'Case Conceptualisation & Treatment Planning', 'Technical'),
+(@mscp, 'SPSS / R for Research', 'Technical'), (@mscp, 'Mental Health Documentation', 'Technical'),
+(@mscp, 'Empathy & Active Listening', 'Soft'), (@mscp, 'Communication', 'Soft'),
+(@mscp, 'Ethical Practice', 'Soft'), (@mscp, 'Crisis Intervention', 'Technical'),
+(@mscp, 'Mindfulness Techniques', 'Technical');
+
+INSERT INTO ats_keywords (course_id, keyword) VALUES
+(@mscp,'counselling'),(@mscp,'cbt'),(@mscp,'dbt'),(@mscp,'psychological assessment'),
+(@mscp,'mental health'),(@mscp,'therapy'),(@mscp,'clinical internship'),
+(@mscp,'spss'),(@mscp,'phq-9'),(@mscp,'treatment planning'),
+(@mscp,'crisis intervention'),(@mscp,'empathy'),(@mscp,'case conceptualisation'),
+(@mscp,'active listening'),(@mscp,'research methods');
+
+INSERT INTO companies (company_name, role, salary, type, stream) VALUES
+('Vandrevala Foundation', 'Counsellor', '₹4–6 LPA', 'Off-Campus', 'science'),
+('iCall (TISS)', 'Mental Health Counsellor', '₹4–5.5 LPA', 'Off-Campus', 'science'),
+('Apollo Hospitals', 'Clinical Psychologist Trainee', '₹4–6 LPA', 'Off-Campus', 'science');
+
+-- ============================================================
+-- 13. M.Sc. Applicable Mathematics  →  MSAM  (Science)
+-- ============================================================
+INSERT INTO courses (course_name, short_name) VALUES ('M.Sc. Applicable Mathematics', 'MSAM');
+SET @msam = LAST_INSERT_ID();
+
+INSERT INTO hr_questions (course_id, question) VALUES
+(@msam, 'Tell me about yourself and your area of focus in applicable mathematics.'),
+(@msam, 'Describe a mathematical modelling project you worked on during your PG course.'),
+(@msam, 'How do you apply mathematical concepts to solve industry or research problems?'),
+(@msam, 'What computational tools do you use for mathematical analysis?'),
+(@msam, 'What career path interests you most — data science, operations research, or academia?');
+
+INSERT INTO gd_topics (course_id, topic, stream) VALUES
+(@msam, 'Cryptography and cybersecurity: how mathematics protects our digital world', 'science'),
+(@msam, 'Is India producing enough mathematicians to meet industry demand?', 'science'),
+(@msam, 'Machine learning is just applied mathematics — do we need to understand the math?', 'science'),
+(@msam, 'Optimisation in supply chains: how mathematics saves billions in logistics', 'science'),
+(@msam, 'Financial mathematics and the 2008 crisis: did quants create or solve the problem?', 'science');
+
+INSERT INTO mock_interview_questions (course_id, question) VALUES
+(@msam, 'Explain the simplex method for solving linear programming problems.'),
+(@msam, 'What is the difference between a deterministic and stochastic model?'),
+(@msam, 'Describe a real-world problem you modelled mathematically and your approach.'),
+(@msam, 'What is the Fourier Transform and what are its applications in signal processing?'),
+(@msam, 'Explain graph theory concepts and an application in network optimisation.');
+
+INSERT INTO aptitude_questions (course_id, question, answer, topic) VALUES
+(@msam, 'Solve: Maximise Z = 3x + 5y subject to x + y ≤ 4, x ≤ 3, y ≤ 2.', 'Z_max = 19 at (3,2): Z = 3(3)+5(2) = 19', 'Linear Programming'),
+(@msam, 'The eigenvalues of [[2,1],[1,2]] are?', 'λ = 1 and λ = 3', 'Linear Algebra'),
+(@msam, 'What is the derivative of e^(3x)?', '3e^(3x)', 'Calculus'),
+(@msam, 'A random walk starts at 0. After 4 steps (±1 equally likely), what is the probability of returning to 0?', '3/8 (choose 2 of 4 steps positive: C(4,2)/16 = 6/16 = 3/8)', 'Probability'),
+(@msam, 'What is the rank of the matrix [[1,2,3],[4,5,6],[7,8,9]]?', 'Rank = 2 (rows are linearly dependent)', 'Linear Algebra');
+
+INSERT INTO technical_questions (course_id, question) VALUES
+(@msam, 'Explain the Finite Element Method (FEM) and its applications in engineering.'),
+(@msam, 'What is numerical differentiation and integration? When are they necessary?'),
+(@msam, 'Describe the Runge-Kutta method for solving ODEs.'),
+(@msam, 'What is game theory and describe Nash equilibrium with an example.'),
+(@msam, 'Explain the travelling salesman problem and approaches to solve it.');
+
+INSERT INTO coding_problems (course_id, problem, difficulty, hint) VALUES
+(@msam, 'Solve a system of linear equations Ax = b using Python (numpy.linalg.solve).', 'Easy', 'import numpy as np; np.linalg.solve(A, b)'),
+(@msam, 'Implement gradient descent from scratch to minimise f(x) = x² - 4x + 6.', 'Medium', 'x = x - learning_rate * df/dx; iterate until convergence'),
+(@msam, 'Solve the 8-Queens problem using backtracking in Python.', 'Hard', 'Place queens row by row; check column and diagonal conflicts; backtrack if stuck'),
+(@msam, 'Implement the Simplex method for a 2-variable LP problem and display iterations.', 'Hard', 'Set up tableau; pivot on basis; stop when all objective coefficients non-negative'),
+(@msam, 'Simulate a random walk (1000 steps) in 2D and visualise the path using matplotlib.', 'Easy', 'Random ±1 steps in x and y; cumsum; plt.plot');
+
+INSERT INTO skills (course_id, skill_name, skill_type) VALUES
+(@msam, 'Mathematical Modelling', 'Technical'), (@msam, 'Operations Research (LP, Network Flow)', 'Technical'),
+(@msam, 'Python (NumPy, SciPy, SymPy)', 'Technical'), (@msam, 'MATLAB', 'Technical'),
+(@msam, 'Numerical Methods', 'Technical'), (@msam, 'Statistics & Probability', 'Technical'),
+(@msam, 'LaTeX', 'Technical'), (@msam, 'Analytical Thinking', 'Soft'),
+(@msam, 'Problem Solving', 'Soft'), (@msam, 'Communication', 'Soft');
+
+INSERT INTO ats_keywords (course_id, keyword) VALUES
+(@msam,'mathematical modeling'),(@msam,'operations research'),(@msam,'python'),
+(@msam,'matlab'),(@msam,'numerical methods'),(@msam,'linear programming'),
+(@msam,'statistics'),(@msam,'optimization'),(@msam,'graph theory'),
+(@msam,'machine learning mathematics'),(@msam,'latex'),(@msam,'scipy'),
+(@msam,'differential equations'),(@msam,'probability'),(@msam,'analytical thinking');
+
+-- ============================================================
+-- 14. M.Com (Accounting and Finance)  →  MCOMAF  (Commerce)
+-- ============================================================
+INSERT INTO courses (course_name, short_name) VALUES ('M.Com Accounting and Finance', 'MCOMAF');
+SET @mcomaf = LAST_INSERT_ID();
+
+INSERT INTO hr_questions (course_id, question) VALUES
+(@mcomaf, 'Tell me about yourself and your specialisation in Accounting and Finance at PG level.'),
+(@mcomaf, 'How does your M.Com specialisation prepare you better than a B.Com graduate?'),
+(@mcomaf, 'Describe a complex financial analysis project you completed during your course.'),
+(@mcomaf, 'What professional certification are you pursuing — CA, CFA, or CPA?'),
+(@mcomaf, 'Where do you see your career in accounting and finance in 5 years?');
+
+INSERT INTO gd_topics (course_id, topic, stream) VALUES
+(@mcomaf, 'IND AS vs IFRS: should India fully adopt international accounting standards?', 'commerce'),
+(@mcomaf, 'GST simplification: has it achieved its intended objectives for businesses?', 'commerce'),
+(@mcomaf, 'Corporate governance failures in India: lessons from big audit scandals', 'commerce'),
+(@mcomaf, 'Digital rupee (CBDC): implications for banking and monetary policy', 'commerce'),
+(@mcomaf, 'Forensic accounting: the growing need for financial fraud detection', 'commerce');
+
+INSERT INTO mock_interview_questions (course_id, question) VALUES
+(@mcomaf, 'Walk me through how you would prepare a cash flow statement from a company''s balance sheet.'),
+(@mcomaf, 'Explain the difference between GAAP and IFRS in the context of revenue recognition.'),
+(@mcomaf, 'What is forensic accounting and how would you approach a financial fraud investigation?'),
+(@mcomaf, 'How do you perform a ratio analysis to assess a company''s financial health?'),
+(@mcomaf, 'Describe the concept of deferred tax and its treatment in financial statements.');
+
+INSERT INTO aptitude_questions (course_id, question, answer, topic) VALUES
+(@mcomaf, 'Current assets = ₹5,00,000; Current liabilities = ₹2,50,000. What is the current ratio?', '2.0', 'Financial Ratios'),
+(@mcomaf, 'A bond with face value ₹1000, coupon rate 10%, is trading at ₹950. Is the YTM higher or lower than 10%?', 'Higher than 10% (bond trading at discount — YTM > coupon rate)', 'Financial Instruments'),
+(@mcomaf, 'Revenue = ₹10L, COGS = ₹6L, Operating expenses = ₹1.5L. What is the operating profit margin?', '(10L-6L-1.5L)/10L = 25%', 'Financial Analysis'),
+(@mcomaf, 'Debenture interest of ₹50,000 is charged at 10%. What is the principal amount of debentures?', '₹5,00,000', 'Accounting'),
+(@mcomaf, 'If the debt-equity ratio is 2:1 and total equity is ₹3,00,000, what is total debt?', '₹6,00,000', 'Capital Structure');
+
+INSERT INTO technical_questions (course_id, question) VALUES
+(@mcomaf, 'Explain the concept of deferred tax liability and deferred tax asset with examples.'),
+(@mcomaf, 'What is the difference between Ind AS 115 and the old revenue recognition standard?'),
+(@mcomaf, 'Describe the process of preparing consolidated financial statements for a group of companies.'),
+(@mcomaf, 'What is XBRL and why is it mandated for financial reporting in India?'),
+(@mcomaf, 'Explain the Black-Scholes model for options pricing in simple terms.');
+
+INSERT INTO coding_problems (course_id, problem, difficulty, hint) VALUES
+(@mcomaf, 'Write Python to generate a Profit & Loss statement from a CSV of transactions.', 'Easy', 'Group by account type; sum debits and credits; compute net profit'),
+(@mcomaf, 'Build a financial ratio calculator — input balance sheet data, output 10 key ratios.', 'Medium', 'Compute: current ratio, quick ratio, debt-equity, ROE, ROA, EPS, P/E, etc.'),
+(@mcomaf, 'Create a Monte Carlo simulation to model portfolio risk for 3 assets in Python.', 'Hard', 'Simulate random returns based on historical mean/std; compute portfolio value distribution'),
+(@mcomaf, 'Write SQL queries to generate an aged debtors report (0-30, 31-60, 61-90, 90+ days).', 'Medium', 'Use DATEDIFF(today, invoice_date); CASE WHEN to bucket; GROUP BY debtor'),
+(@mcomaf, 'Automate generation of an Excel financial dashboard with charts using Python (openpyxl).', 'Medium', 'Use openpyxl; add revenue/profit charts; conditional formatting for loss cells');
+
+INSERT INTO skills (course_id, skill_name, skill_type) VALUES
+(@mcomaf, 'Advanced Accounting (Ind AS / IFRS)', 'Technical'), (@mcomaf, 'Financial Analysis & Valuation', 'Technical'),
+(@mcomaf, 'Tally Prime / SAP FICO', 'Technical'), (@mcomaf, 'MS Excel (Advanced — Pivot, Power Query)', 'Technical'),
+(@mcomaf, 'Taxation (GST, Direct Tax)', 'Technical'), (@mcomaf, 'Auditing & Forensic Accounting', 'Technical'),
+(@mcomaf, 'Python for Finance', 'Technical'), (@mcomaf, 'Communication', 'Soft'),
+(@mcomaf, 'Analytical Thinking', 'Soft'), (@mcomaf, 'Attention to Detail', 'Soft');
+
+INSERT INTO ats_keywords (course_id, keyword) VALUES
+(@mcomaf,'accounting'),(@mcomaf,'financial analysis'),(@mcomaf,'ind as'),(@mcomaf,'ifrs'),
+(@mcomaf,'tally'),(@mcomaf,'sap fico'),(@mcomaf,'ms excel'),(@mcomaf,'gst'),
+(@mcomaf,'auditing'),(@mcomaf,'forensic accounting'),(@mcomaf,'python'),
+(@mcomaf,'financial reporting'),(@mcomaf,'taxation'),(@mcomaf,'ratio analysis'),
+(@mcomaf,'communication');
+
+INSERT INTO companies (company_name, role, salary, type, stream) VALUES
+('Deloitte', 'Senior Audit Associate', '₹6–8 LPA', 'On-Campus', 'commerce'),
+('EY', 'Senior Associate - Assurance', '₹6.5–8 LPA', 'On-Campus', 'commerce'),
+('KPMG', 'Senior Associate - Tax', '₹6–8 LPA', 'On-Campus', 'commerce');
+
+-- ============================================================
+-- 15. MBA  →  MBA  (Commerce)
+-- ============================================================
+INSERT INTO courses (course_name, short_name) VALUES ('Master of Business Administration', 'MBA');
+SET @mba = LAST_INSERT_ID();
+
+INSERT INTO hr_questions (course_id, question) VALUES
+(@mba, 'Tell me about yourself and why you chose MBA as your postgraduate program.'),
+(@mba, 'Walk me through a leadership situation you faced and how you handled it.'),
+(@mba, 'What is your MBA specialisation and how does it align with your career goals?'),
+(@mba, 'How do you approach a business problem you have never encountered before?'),
+(@mba, 'Where do you see yourself in 5 years post-MBA?');
+
+INSERT INTO gd_topics (course_id, topic, stream) VALUES
+(@mba, 'ESG investing: responsible capitalism or a marketing exercise?', 'commerce'),
+(@mba, 'Startup ecosystem in India: is there a unicorn bubble forming?', 'commerce'),
+(@mba, 'Should MBA be the only pathway to senior management roles?', 'commerce'),
+(@mba, 'Digital transformation: is it a strategy or just a buzzword in boardrooms?', 'commerce'),
+(@mba, 'Mergers and acquisitions: do they create value or just shareholder wealth for a few?', 'commerce');
+
+INSERT INTO mock_interview_questions (course_id, question) VALUES
+(@mba, 'Walk me through how you would approach a market entry strategy for a new product in India.'),
+(@mba, 'Explain a time when you led a team under pressure and delivered results.'),
+(@mba, 'Perform a quick SWOT analysis of our company based on what you know.'),
+(@mba, 'How would you set the price for a new product entering a competitive market?'),
+(@mba, 'Describe a failed initiative you were part of and what you would do differently.');
+
+INSERT INTO aptitude_questions (course_id, question, answer, topic) VALUES
+(@mba, 'A company''s revenue grew from ₹100Cr to ₹150Cr in 3 years. What is the CAGR?', 'CAGR = (150/100)^(1/3) - 1 ≈ 14.47%', 'Business Analytics'),
+(@mba, 'Market share of Company A is 35%, Company B is 25%, Company C is 20%, others 20%. What is the HHI?', 'HHI = 35²+25²+20²+20² = 1225+625+400+400 = 2650', 'Strategy'),
+(@mba, 'Break-even units = Fixed Cost / (Price - Variable Cost). If FC=₹2L, Price=₹500, VC=₹300, find break-even.', '1000 units', 'Cost Accounting'),
+(@mba, 'An NPV of -₹50,000 for a project at 12% discount rate means?', 'Project destroys value — do not proceed at this discount rate', 'Finance'),
+(@mba, 'If elasticity of demand = -2 and price increases by 5%, what happens to revenue?', 'Revenue falls — |Ed|>1 means demand is elastic; % quantity drop (10%) > % price rise (5%)', 'Pricing Strategy');
+
+INSERT INTO technical_questions (course_id, question) VALUES
+(@mba, 'Explain Porter''s Five Forces and apply it to the Indian telecom industry.'),
+(@mba, 'What is the difference between a growth strategy and a turnaround strategy?'),
+(@mba, 'Describe the BCG matrix and how it guides portfolio management decisions.'),
+(@mba, 'What is the Balanced Scorecard and how does it align strategy with operations?'),
+(@mba, 'Explain discounted cash flow (DCF) valuation and its limitations in practice.');
+
+INSERT INTO coding_problems (course_id, problem, difficulty, hint) VALUES
+(@mba, 'Build a business dashboard in Python that shows revenue, profit margin, and growth trends for 12 months.', 'Medium', 'Use pandas for data; matplotlib/plotly for charts; calculate MoM growth %'),
+(@mba, 'Write Python to perform customer segmentation using K-means clustering on purchase data.', 'Medium', 'from sklearn.cluster import KMeans; scale features; plot clusters; label segments'),
+(@mba, 'Create a DCF valuation model in Excel using Python (openpyxl) for a 5-year projection.', 'Medium', 'Project FCF; discount at WACC; sum PV of FCFs + terminal value'),
+(@mba, 'Build a simple CRM data analysis tool: track leads, conversion rates, and revenue per rep in Python.', 'Easy', 'Use pandas DataFrame; groupby sales_rep; compute conversion = closed/total_leads'),
+(@mba, 'Write Python to optimise marketing budget allocation across 4 channels using linear programming (scipy.optimize).', 'Hard', 'scipy.optimize.linprog with ROI coefficients; budget constraint; non-negativity');
+
+INSERT INTO skills (course_id, skill_name, skill_type) VALUES
+(@mba, 'Strategic Management & Business Analysis', 'Technical'), (@mba, 'Financial Modelling (DCF, LBO)', 'Technical'),
+(@mba, 'Marketing Management & CRM', 'Technical'), (@mba, 'Operations & Supply Chain', 'Technical'),
+(@mba, 'MS Excel (Pivot, Power BI, Dashboard)', 'Technical'), (@mba, 'Python for Business Analytics', 'Technical'),
+(@mba, 'Leadership & Decision Making', 'Soft'), (@mba, 'Communication & Presentation', 'Soft'),
+(@mba, 'Negotiation', 'Soft'), (@mba, 'Stakeholder Management', 'Soft');
+
+INSERT INTO ats_keywords (course_id, keyword) VALUES
+(@mba,'strategic management'),(@mba,'financial modeling'),(@mba,'marketing management'),
+(@mba,'operations management'),(@mba,'ms excel'),(@mba,'python'),(@mba,'power bi'),
+(@mba,'leadership'),(@mba,'business analytics'),(@mba,'communication'),
+(@mba,'dcf valuation'),(@mba,'crm'),(@mba,'supply chain'),
+(@mba,'stakeholder management'),(@mba,'decision making');
+
+INSERT INTO companies (company_name, role, salary, type, stream) VALUES
+('McKinsey & Company', 'Business Analyst', '₹20–30 LPA', 'Off-Campus', 'commerce'),
+('Hindustan Unilever', 'Management Trainee', '₹10–14 LPA', 'On-Campus', 'commerce'),
+('Amazon India', 'MBA Operations Manager', '₹12–18 LPA', 'Off-Campus', 'commerce'),
+('HDFC Bank', 'Assistant Manager (MBA)', '₹7–10 LPA', 'On-Campus', 'commerce');
+
+-- ============================================================
+-- DONE — 15 new courses inserted with full module data
+-- ============================================================
