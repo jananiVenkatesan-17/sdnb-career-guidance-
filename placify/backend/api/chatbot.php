@@ -24,14 +24,110 @@ function sendReply($message, $extra = []) {
 }
 
 // ============================================================
+// FILE TEXT EXTRACTION — PDF, DOCX, DOC, TXT
+// ============================================================
+function extractResumeText($filePath, $origName) {
+    $ext = strtolower(pathinfo($origName, PATHINFO_EXTENSION));
+
+    // ── TXT ──────────────────────────────────────────────────
+    if ($ext === 'txt') {
+        return file_get_contents($filePath);
+    }
+
+    // ── DOCX — unzip and parse word/document.xml ─────────────
+    if ($ext === 'docx') {
+        if (!class_exists('ZipArchive')) return false;
+        $zip = new ZipArchive();
+        if ($zip->open($filePath) !== true) return false;
+        $xml = $zip->getFromName('word/document.xml');
+        $zip->close();
+        if (!$xml) return false;
+        // Replace paragraph/line-break tags with newline, then strip all tags
+        $xml  = str_replace(['</w:p>','</w:r>','<w:br/>'], "\n", $xml);
+        $text = strip_tags($xml);
+        return html_entity_decode($text, ENT_QUOTES | ENT_XML1, 'UTF-8');
+    }
+
+    // ── PDF — pdftotext first, then raw byte fallback ─────────
+    if ($ext === 'pdf') {
+        // Try pdftotext (poppler-utils — available on most Linux servers)
+        $escaped = escapeshellarg($filePath);
+        $text    = @shell_exec("pdftotext $escaped - 2>/dev/null");
+        if ($text && strlen(trim($text)) > 30) return $text;
+
+        // Raw PDF byte extraction fallback
+        $raw = file_get_contents($filePath);
+        preg_match_all('/BT(.+?)ET/s', $raw, $blocks);
+        $text = '';
+        foreach ($blocks[1] as $block) {
+            preg_match_all('/\(([^)]+)\)\s*Tj/', $block, $tj);
+            foreach ($tj[1] as $t) $text .= $t . ' ';
+        }
+        if (strlen(trim($text)) > 30) return $text;
+
+        // Last resort: grab readable ASCII strings
+        preg_match_all('/[\x20-\x7E]{4,}/', $raw, $m);
+        return implode(' ', $m[0]);
+    }
+
+    // ── DOC (old binary Word) — extract readable strings ──────
+    if ($ext === 'doc') {
+        $raw = file_get_contents($filePath);
+        preg_match_all('/[\x20-\x7E\xC0-\xFF]{4,}/', $raw, $m);
+        $text = implode(' ', $m[0]);
+        return strlen($text) > 50 ? $text : false;
+    }
+
+    return false;
+}
+
+// ============================================================
+// FILE UPLOAD HANDLER — intercept BEFORE JSON parsing
+// Triggered when ATS is in waiting_resume state and a file is sent
+// ============================================================
+$uploadedResumeText = null;
+if (!empty($_FILES['resume']['tmp_name'])) {
+    $file     = $_FILES['resume'];
+    $allowed  = ['pdf','docx','doc','txt'];
+    $ext      = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+
+    if (!in_array($ext, $allowed)) {
+        echo json_encode(["reply" => "⚠️ <b>Unsupported file type.</b>\nPlease upload a <b>PDF, DOCX, DOC, or TXT</b> file only."]);
+        exit;
+    }
+    if ($file['size'] > 5 * 1024 * 1024) {
+        echo json_encode(["reply" => "⚠️ File too large. Please upload a file under 5 MB."]);
+        exit;
+    }
+
+    $extracted = extractResumeText($file['tmp_name'], $file['name']);
+    if ($extracted && strlen(trim($extracted)) > 50) {
+        $uploadedResumeText = $extracted;
+    } else {
+        echo json_encode(["reply" =>
+            "⚠️ <b>Could not read your file.</b>\n\n" .
+            "This can happen with scanned/image-only PDFs.\n" .
+            "👉 Please <b>copy and paste your resume text</b> directly into the chat instead."
+        ]);
+        exit;
+    }
+}
+
+// ============================================================
 // STREAM DEFINITIONS  (matches courses in dataset.sql)
 // ============================================================
 $scienceStreams  = ["CS","BCA","MCA","MSC CS","COGNITIVE","DS","AI","DSAI",
-                    "CLOUD","CYBER","MATHS","PHYSICS","CHEM","PSY","CND","NFSM","EVS"];
+                    "CLOUD","CYBER","MATHS","PHYSICS","CHEM","PSY","CND","NFSM","EVS",
+                    // New courses from images
+                    "STATS","PBPB","MSPB","MSBIO","MSPHY","MSCHEM","MSHSN","MSDAI","MSCP","MSAM"];
 $commerceStreams = ["BCOM","CORP","AF","HONS","BIM","BCOM CA","PA","ISM",
-                    "FINTECH","IB","BF","MCOM","BBA","DM","FASHION","AIRPORT"];
+                    "FINTECH","IB","BF","MCOM","BBA","DM","FASHION","AIRPORT",
+                    // New courses from images
+                    "MAHRM","MCOMAF","MBA"];
 $artsStreams     = ["ENG","HISTORY","ECO","TAMIL","HINDI","SANSKRIT",
-                    "FRENCH","TOURISM","MA ENG","MA TAMIL","VISCOM","SOC"];
+                    "FRENCH","TOURISM","MA ENG","MA TAMIL","VISCOM","SOC",
+                    // New courses from images
+                    "MSW","MAECO"];
 
 function getStream($short, $scienceStreams, $commerceStreams, $artsStreams) {
     $short = strtoupper(trim($short));
@@ -135,7 +231,13 @@ function getLinks($topic, $stream = "") {
 $rawInput = file_get_contents("php://input");
 $input    = json_decode($rawInput, true);
 $message  = trim($input['message'] ?? '');
-$msg      = mb_strtolower($message, 'UTF-8');
+
+// If a file was uploaded, use its extracted text as the message
+if ($uploadedResumeText) {
+    $message = trim($uploadedResumeText);
+}
+
+$msg = mb_strtolower($message, 'UTF-8');
 
 if (empty($message)) sendReply("Please type a message.");
 
@@ -482,11 +584,12 @@ function getFaqDept($short) {
     // Tech / CS courses
     $cs = ['CS','BCA','MCA','MSC CS','COGNITIVE','DS','AI','DSAI','CLOUD','CYBER'];
     if (in_array($short, $cs)) return 'cs';
-    // Basic sciences
-    $sci = ['MATHS','PHYSICS','CHEM','PSY','CND','NFSM','EVS'];
+    // Basic sciences (UG + PG science/research courses)
+    $sci = ['MATHS','PHYSICS','CHEM','PSY','CND','NFSM','EVS',
+            'STATS','PBPB','MSPB','MSBIO','MSPHY','MSCHEM','MSHSN','MSDAI','MSCP','MSAM'];
     if (in_array($short, $sci)) return 'basic_science';
-    // Management
-    $mgmt = ['BBA','DM','MCOM'];
+    // Management (UG + PG management)
+    $mgmt = ['BBA','DM','MCOM','MAHRM','MCOMAF','MBA'];
     if (in_array($short, $mgmt)) return 'management';
     // Vocational
     $voc = ['FASHION','AIRPORT'];
@@ -494,8 +597,9 @@ function getFaqDept($short) {
     // Commerce
     $com = ['BCOM','CORP','AF','HONS','BIM','BCOM CA','PA','ISM','FINTECH','IB','BF'];
     if (in_array($short, $com)) return 'commerce';
-    // Arts
-    $arts = ['ENG','HISTORY','ECO','TAMIL','HINDI','SANSKRIT','FRENCH','TOURISM','MA ENG','MA TAMIL','VISCOM','SOC'];
+    // Arts (UG + PG arts/social science)
+    $arts = ['ENG','HISTORY','ECO','TAMIL','HINDI','SANSKRIT','FRENCH',
+             'TOURISM','MA ENG','MA TAMIL','VISCOM','SOC','MSW','MAECO'];
     if (in_array($short, $arts)) return 'arts';
     return 'general';
 }
@@ -1053,8 +1157,10 @@ if ($module === 'ats') {
         sendReply(
             "📄 <b>ATS Resume Checker — Course: $short</b>\n━━━━━━━━━━━━━━━━━\n\n" .
             "✅ Course set to <b>$short</b>.\n\n" .
-            "📋 <b>Now paste your full resume text below</b> and I will:\n" .
-            "   🔍 Check it against the ATS keywords for <b>$short</b>\n" .
+            "📋 <b>How to check your resume:</b>\n\n" .
+            "✏️ Open your resume (PDF, Word, or any file), select all the text, copy it, and paste it directly into the chat box below.\n\n" .
+            "I will then:\n" .
+            "   🔍 Check it against ATS keywords for <b>$short</b>\n" .
             "   📊 Give you an ATS score out of 100%\n" .
             "   ❌ List which important keywords are missing\n\n" .
             "👇 <b>Paste your resume text now:</b>"
@@ -1076,94 +1182,97 @@ if ($module === 'ats') {
 // ---- COMPANY ----
 if ($module === 'company') {
 
-    // ── Step 1: Resolve stream ────────────────────────────────────────────────
-    // Priority: explicit stream word in message > active course stream > none
-
-    // Map stream aliases the user might type
+    // ── Step 1: Resolve stream alias if user typed stream name ────────────────
     $streamAliasMap = [
-        'science'  => 'science',
-        'tech'     => 'science',
-        'it'       => 'science',
-        'computer' => 'science',
-        'commerce' => 'commerce',
-        'business' => 'commerce',
-        'finance'  => 'commerce',
-        'arts'     => 'arts',
-        'language' => 'arts',
-        'humanity' => 'arts',
-        'humanities'=> 'arts',
-        'management'=> 'commerce',
+        'science'   => 'science', 'tech'      => 'science',
+        'it'        => 'science', 'computer'  => 'science',
+        'commerce'  => 'commerce','business'  => 'commerce',
+        'finance'   => 'commerce','management'=> 'commerce',
+        'arts'      => 'arts',    'language'  => 'arts',
+        'humanity'  => 'arts',    'humanities'=> 'arts',
         'vocational'=> 'arts',
     ];
 
-    // Check if user typed a stream name directly (e.g. "company for arts")
     $directStream = null;
     if ($parsedCourse) {
         $parsedLower = strtolower(trim($parsedCourse));
-        if (isset($streamAliasMap[$parsedLower])) {
-            $directStream = $streamAliasMap[$parsedLower];
-        }
+        if (isset($streamAliasMap[$parsedLower])) $directStream = $streamAliasMap[$parsedLower];
     }
-    // Also scan the raw message for stream keywords
     if (!$directStream) {
-        foreach ($streamAliasMap as $alias => $streamVal) {
-            if (strpos($msg, $alias) !== false) {
-                $directStream = $streamVal;
-                break;
-            }
+        foreach ($streamAliasMap as $alias => $sv) {
+            if (strpos($msg, $alias) !== false) { $directStream = $sv; break; }
         }
     }
 
-    // Course info from active course
+    // ── Step 2: Course info ───────────────────────────────────────────────────
     $ci     = $activeCourse ? getCourseInfo($activeCourse, $scienceStreams, $commerceStreams, $artsStreams) : null;
+    $cid    = $ci ? (int)$ci['id'] : null;
     $stream = $directStream ?? ($ci ? $ci['stream'] : null);
 
-    // ── Step 2: Build label ───────────────────────────────────────────────────
+    // ── Step 3: Build label ───────────────────────────────────────────────────
     $streamEmojis = ['science' => '🔬', 'commerce' => '💼', 'arts' => '🎨'];
-    if ($directStream) {
-        // User typed a stream name — e.g. "company for arts"
-        $label = " for <b>" . ucfirst($directStream) . " Stream</b>";
-        $emoji = $streamEmojis[$directStream] ?? '🎓';
-    } elseif ($ci) {
-        // User has an active course — e.g. "company for BCA"
+    if ($ci && !$directStream) {
         $label = " for <b>{$ci['short']}</b> ({$ci['name']})";
         $emoji = $ci['emoji'];
+    } elseif ($directStream) {
+        $label = " for <b>" . ucfirst($directStream) . " Stream</b>";
+        $emoji = $streamEmojis[$directStream] ?? '🎓';
     } else {
-        $label = "";
-        $emoji = "🏢";
+        $label = ""; $emoji = "🏢";
     }
 
     $reply = "$emoji <b>Companies Visiting for Placement$label</b>\n━━━━━━━━━━━━━━━━━\n\n";
 
-    // ── Step 3: Query DB ──────────────────────────────────────────────────────
-    // companies table: (id, company_name, role, salary, type, stream)
-    $result = null;
-    if ($stream) {
-        $safeStream = $conn->real_escape_string($stream);
+    // ── Step 4: Query — course_id first, then stream fallback ─────────────────
+    $result = null; $found = false;
+
+    // Priority 1: Specific course companies (course_id match)
+    if ($cid && !$directStream) {
         $result = $conn->query(
-            "SELECT company_name, role, salary, type, stream
+            "SELECT company_name, role, salary, type
              FROM companies
-             WHERE stream = '$safeStream'
-             ORDER BY company_name
-             LIMIT 15"
-        );
-    } else {
-        // No stream — show all, grouped by stream
-        $result = $conn->query(
-            "SELECT company_name, role, salary, type, stream
-             FROM companies
-             ORDER BY stream, company_name
-             LIMIT 20"
+             WHERE course_id = $cid
+             ORDER BY company_name LIMIT 15"
         );
     }
 
-    // ── Step 4: Render results ────────────────────────────────────────────────
-    $found = false;
+    // Priority 2: Stream-wide (user typed stream name OR no course-specific results)
+    if (!$result || $result->num_rows === 0) {
+        if ($stream) {
+            $safeStream = $conn->real_escape_string($stream);
+            // When showing stream-wide, exclude companies tied to unrelated courses
+            $result = $conn->query(
+                "SELECT company_name, role, salary, type
+                 FROM companies
+                 WHERE stream = '$safeStream'
+                   AND (course_id IS NULL OR course_id = " . ($cid ?? 0) . ")
+                 ORDER BY company_name LIMIT 15"
+            );
+            // If that returns nothing, show all stream companies
+            if (!$result || $result->num_rows === 0) {
+                $result = $conn->query(
+                    "SELECT company_name, role, salary, type
+                     FROM companies
+                     WHERE stream = '$safeStream'
+                     ORDER BY company_name LIMIT 15"
+                );
+            }
+        } else {
+            // No stream — show all grouped by stream
+            $result = $conn->query(
+                "SELECT company_name, role, salary, type, stream
+                 FROM companies
+                 WHERE course_id IS NULL
+                 ORDER BY stream, company_name LIMIT 20"
+            );
+        }
+    }
+
+    // ── Step 5: Render DB results ─────────────────────────────────────────────
     if ($result && $result->num_rows > 0) {
         $currentStream = null;
         while ($row = $result->fetch_assoc()) {
-            // If showing all streams, print a section header per stream
-            if (!$stream && $row['stream'] !== $currentStream) {
+            if (!$stream && isset($row['stream']) && $row['stream'] !== $currentStream) {
                 $currentStream = $row['stream'];
                 $secEmoji = $streamEmojis[$currentStream] ?? '🏢';
                 $reply .= "\n$secEmoji <b>" . ucfirst($currentStream) . " Companies:</b>\n";
@@ -1177,67 +1286,61 @@ if ($module === 'company') {
         }
     }
 
-    // ── Step 5: Hardcoded fallback if DB empty ────────────────────────────────
+    // ── Step 6: Hardcoded fallback if DB empty ────────────────────────────────
     if (!$found) {
-        $defaults = [
-            "science"  => [
-                ["TCS",           "Software Developer",        "₹3.5 LPA", "On-Campus"],
-                ["Infosys",       "Systems Engineer",          "₹3.6 LPA", "On-Campus"],
-                ["Wipro",         "Project Engineer",          "₹3.5 LPA", "On-Campus"],
-                ["Cognizant",     "Programmer Analyst",        "₹4 LPA",   "On-Campus"],
-                ["Zoho",          "Software Developer",        "₹6–8 LPA", "Referral"],
-                ["HCL Technologies","Graduate Engineer Trainee","₹3.5 LPA","On-Campus"],
-                ["Accenture",     "Associate Software Engineer","₹4.5 LPA","On-Campus"],
-                ["Capgemini",     "Analyst",                   "₹3.8 LPA", "On-Campus"],
-                ["Tech Mahindra", "Graduate Trainee",          "₹3.5 LPA", "On-Campus"],
-                ["Freshworks",    "Junior Developer",          "₹7 LPA",   "Off-Campus"],
-            ],
-            "commerce" => [
-                ["Deloitte",      "Business Analyst",          "₹5 LPA",   "On-Campus"],
-                ["HDFC Bank",     "Banking Associate",         "₹3–4 LPA", "On-Campus"],
-                ["ICICI Bank",    "Relationship Manager",      "₹3.5 LPA", "On-Campus"],
-                ["Axis Bank",     "Banking Executive",         "₹3 LPA",   "On-Campus"],
-                ["KPMG",          "Audit Associate",           "₹5 LPA",   "On-Campus"],
-                ["EY",            "Associate",                 "₹4.5 LPA", "On-Campus"],
-                ["PwC",           "Junior Associate",          "₹4 LPA",   "On-Campus"],
-                ["Infosys BPO",   "Process Executive",         "₹2.5 LPA", "On-Campus"],
-                ["Bajaj Finserv", "Sales Executive",           "₹3 LPA",   "On-Campus"],
-                ["Gartner",       "Research Associate",        "₹4 LPA",   "Off-Campus"],
-            ],
-            "arts"     => [
-                ["Concentrix",    "Customer Support Executive","₹2.5 LPA", "On-Campus"],
-                ["Sutherland",    "Process Associate",         "₹2.5 LPA", "On-Campus"],
-                ["EY",            "Content & Communications",  "₹3.5 LPA", "Off-Campus"],
-                ["Cognizant BPS", "Customer Service",          "₹3 LPA",   "On-Campus"],
-                ["HCL BPO",       "Support Executive",         "₹2.5 LPA", "On-Campus"],
-                ["Times of India","Content Writer / Trainee",  "₹2.5 LPA", "Off-Campus"],
-                ["MakeMyTrip",    "Travel Consultant",         "₹3 LPA",   "Off-Campus"],
-                ["Thomas Cook",   "Tour Executive",            "₹2.5 LPA", "Off-Campus"],
-                ["iEnergizer",    "Customer Service Rep",      "₹2.5 LPA", "On-Campus"],
-                ["Mphasis BPO",   "Customer Support",         "₹3 LPA",   "On-Campus"],
-            ],
+        $courseDefaults = [
+            // Science/Tech
+            'CS'     => [['TCS','Software Developer','₹3.5 LPA','On-Campus'],['Infosys','Systems Engineer','₹3.6 LPA','On-Campus'],['Wipro','Project Engineer','₹3.5 LPA','On-Campus'],['Cognizant','Programmer Analyst','₹4 LPA','On-Campus'],['Zoho','Software Developer','₹6–8 LPA','Referral']],
+            'BCA'    => [['TCS','Software Developer','₹3.5 LPA','On-Campus'],['Infosys','Systems Engineer','₹3.6 LPA','On-Campus'],['Wipro','Project Engineer','₹3.5 LPA','On-Campus'],['HCL Technologies','Graduate Engineer Trainee','₹3.5 LPA','On-Campus'],['Capgemini','Analyst','₹3.8 LPA','On-Campus']],
+            'MCA'    => [['TCS','Systems Engineer','₹3.6 LPA','On-Campus'],['Infosys','Software Engineer','₹4 LPA','On-Campus'],['Accenture','Associate Software Engineer','₹4.5 LPA','On-Campus'],['Zoho','Software Developer','₹6 LPA','Referral'],['Freshworks','Junior Developer','₹7 LPA','Off-Campus']],
+            'AI'     => [['Google India','Data Scientist','₹18–25 LPA','Off-Campus'],['Amazon','Applied Scientist','₹15–22 LPA','Off-Campus'],['Wipro AI360','ML Engineer','₹8–12 LPA','Off-Campus'],['TCS Research','AI Engineer','₹6–8 LPA','On-Campus'],['Zoho','AI Developer','₹7 LPA','Referral']],
+            'DS'     => [['Mu Sigma','Data Analyst','₹4–6 LPA','On-Campus'],['Fractal Analytics','Business Analyst','₹5–7 LPA','Off-Campus'],['Latent View Analytics','Data Analyst','₹4–6 LPA','Off-Campus'],['TCS','Data Analyst','₹3.6 LPA','On-Campus'],['Infosys','Data Engineer','₹4 LPA','On-Campus']],
+            'MSDAI'  => [['Google India','Data Scientist','₹18–25 LPA','Off-Campus'],['Amazon','Applied Scientist','₹15–22 LPA','Off-Campus'],['Microsoft','ML Engineer','₹15–20 LPA','Off-Campus'],['Fractal Analytics','Senior Analyst','₹8–10 LPA','Off-Campus'],['Wipro AI360','ML Engineer','₹8–12 LPA','Off-Campus']],
+            'CYBER'  => [['TCS Cyber Security','Security Analyst','₹4.5 LPA','On-Campus'],['Wipro','Cyber Analyst','₹4 LPA','On-Campus'],['IBM Security','Security Engineer','₹5 LPA','Off-Campus'],['HCL','Security Operations','₹4 LPA','On-Campus'],['Infosys','Cyber Security Analyst','₹4.2 LPA','On-Campus']],
+            'CLOUD'  => [['AWS India','Cloud Support Engineer','₹6 LPA','Off-Campus'],['TCS','Cloud Engineer','₹4 LPA','On-Campus'],['Accenture','Cloud Analyst','₹4.5 LPA','On-Campus'],['Infosys','Cloud Developer','₹4 LPA','On-Campus'],['Wipro','Cloud Associate','₹3.8 LPA','On-Campus']],
+            'MSBIO'  => [['IQVIA','Biostatistician I','₹6–9 LPA','Off-Campus'],['Parexel','Statistical Programmer','₹5–8 LPA','Off-Campus'],['Quintiles','Clinical Data Analyst','₹5–7 LPA','Off-Campus']],
+            'MSCHEM' => [['Cipla','Research Associate','₹4–6 LPA','Off-Campus'],['Dr. Reddy\'s','Analytical Chemist','₹4.5–6.5 LPA','Off-Campus'],['Sun Pharma','QC Chemist','₹3.5–5.5 LPA','Off-Campus']],
+            'MSHSN'  => [['Apollo Hospitals','Clinical Dietician','₹4–6 LPA','Off-Campus'],['Nestlé India','Nutrition Specialist','₹5–7 LPA','Off-Campus'],['ITC Foods','Food Technologist','₹5–7 LPA','Off-Campus']],
+            'MSCP'   => [['Vandrevala Foundation','Counsellor','₹4–6 LPA','Off-Campus'],['iCall (TISS)','Mental Health Counsellor','₹4–5.5 LPA','Off-Campus'],['Apollo Hospitals','Clinical Psychologist Trainee','₹4–6 LPA','Off-Campus']],
+            'PBPB'   => [['Biocon','Research Trainee','₹3–5 LPA','Off-Campus'],['Syngenta India','Plant Scientist Trainee','₹3.5–5 LPA','Off-Campus'],['National Seeds Corporation','Field Scientist','₹3–4 LPA','Off-Campus']],
+            // Commerce
+            'BCOM'   => [['Deloitte','Business Analyst','₹5 LPA','On-Campus'],['HDFC Bank','Banking Associate','₹3–4 LPA','On-Campus'],['ICICI Bank','Relationship Manager','₹3.5 LPA','On-Campus'],['KPMG','Audit Associate','₹5 LPA','On-Campus'],['EY','Associate','₹4.5 LPA','On-Campus']],
+            'BBA'    => [['Amazon','Operations Trainee','₹4 LPA','Off-Campus'],['Deloitte','Business Analyst','₹5 LPA','On-Campus'],['HDFC Bank','Banking Associate','₹3.5 LPA','On-Campus'],['Gartner','Research Associate','₹4 LPA','Off-Campus'],['Infosys BPO','Process Executive','₹2.5 LPA','On-Campus']],
+            'FINTECH'=> [['Razorpay','Fintech Analyst','₹5–7 LPA','Off-Campus'],['Paytm','Operations Analyst','₹4–6 LPA','Off-Campus'],['HDFC Bank','Digital Banking Associate','₹4 LPA','On-Campus'],['ICICI Bank','Fintech Executive','₹3.5 LPA','On-Campus']],
+            'MBA'    => [['McKinsey & Company','Business Analyst','₹20–30 LPA','Off-Campus'],['HUL','Management Trainee','₹10–14 LPA','On-Campus'],['Amazon India','Operations Manager','₹12–18 LPA','Off-Campus'],['HDFC Bank','Asst Manager','₹7–10 LPA','On-Campus']],
+            'MAHRM'  => [['Deloitte','HR Associate','₹5–6 LPA','On-Campus'],['Amazon','HR Coordinator','₹5–7 LPA','Off-Campus'],['Infosys BPO','HR Executive','₹3.5–5 LPA','On-Campus']],
+            'MCOMAF' => [['Deloitte','Senior Audit Associate','₹6–8 LPA','On-Campus'],['EY','Senior Assurance Associate','₹6.5–8 LPA','On-Campus'],['KPMG','Senior Tax Associate','₹6–8 LPA','On-Campus']],
+            // Arts
+            'ENG'    => [['Concentrix','Customer Support Executive','₹2.5 LPA','On-Campus'],['Sutherland','Process Associate','₹2.5 LPA','On-Campus'],['EY','Content & Communications','₹3.5 LPA','Off-Campus'],['Times of India','Content Writer Trainee','₹2.5 LPA','Off-Campus']],
+            'TAMIL'  => [['Concentrix','Tamil Support Executive','₹2.5 LPA','On-Campus'],['Sutherland','Language Support','₹2.5 LPA','On-Campus'],['HCL BPO','Support Executive','₹2.5 LPA','On-Campus']],
+            'TOURISM'=> [['MakeMyTrip','Travel Consultant','₹3 LPA','Off-Campus'],['Thomas Cook','Tour Executive','₹2.5 LPA','Off-Campus'],['Cox & Kings','Travel Associate','₹2.5 LPA','Off-Campus']],
+            'VISCOM' => [['Times of India','Visual Content Trainee','₹2.5 LPA','Off-Campus'],['Ogilvy','Junior Creative','₹3 LPA','Off-Campus'],['Hotstar','Content Associate','₹3 LPA','Off-Campus']],
+            'MSW'    => [['CRY India','Programme Officer','₹3–4.5 LPA','Off-Campus'],['UNICEF India','Programme Associate','₹3.5–5 LPA','Off-Campus'],['Aga Khan Foundation','Field Coordinator','₹3–4 LPA','Off-Campus']],
+            'MAECO'  => [['NITI Aayog','Research Officer','₹6–9 LPA','Off-Campus'],['RBI','Research Officer','₹7–10 LPA','Off-Campus'],['McKinsey & Company','Business Analyst','₹12–16 LPA','Off-Campus']],
         ];
 
-        if ($stream && isset($defaults[$stream])) {
-            foreach ($defaults[$stream] as $c) {
-                $reply .= "🔹 <b>{$c[0]}</b>\n   💼 Role: {$c[1]}\n   💰 Package: {$c[2]}\n   📋 Type: {$c[3]}\n\n";
-            }
+        $streamDefaults = [
+            "science"  => [['TCS','Software Developer','₹3.5 LPA','On-Campus'],['Infosys','Systems Engineer','₹3.6 LPA','On-Campus'],['Wipro','Project Engineer','₹3.5 LPA','On-Campus'],['Cognizant','Programmer Analyst','₹4 LPA','On-Campus'],['Accenture','Associate Software Engineer','₹4.5 LPA','On-Campus']],
+            "commerce" => [['Deloitte','Business Analyst','₹5 LPA','On-Campus'],['HDFC Bank','Banking Associate','₹3–4 LPA','On-Campus'],['ICICI Bank','Relationship Manager','₹3.5 LPA','On-Campus'],['EY','Associate','₹4.5 LPA','On-Campus'],['KPMG','Audit Associate','₹5 LPA','On-Campus']],
+            "arts"     => [['Concentrix','Customer Support Executive','₹2.5 LPA','On-Campus'],['Sutherland','Process Associate','₹2.5 LPA','On-Campus'],['EY','Content & Communications','₹3.5 LPA','Off-Campus'],['MakeMyTrip','Travel Consultant','₹3 LPA','Off-Campus'],['HCL BPO','Support Executive','₹2.5 LPA','On-Campus']],
+        ];
+
+        $short = $ci ? $ci['short'] : null;
+        if ($short && isset($courseDefaults[$short])) {
+            $list = $courseDefaults[$short];
+        } elseif ($stream && isset($streamDefaults[$stream])) {
+            $list = $streamDefaults[$stream];
         } else {
-            // Show all streams
-            foreach ($defaults as $s => $list) {
-                $secEmoji = $streamEmojis[$s] ?? '🏢';
-                $reply .= "$secEmoji <b>" . ucfirst($s) . " Companies:</b>\n";
-                foreach ($list as $c) {
-                    $reply .= "🔹 <b>{$c[0]}</b>\n   💼 Role: {$c[1]}\n   💰 Package: {$c[2]}\n   📋 Type: {$c[3]}\n\n";
-                }
-            }
+            $list = array_merge($streamDefaults['science'], $streamDefaults['commerce']);
+        }
+        foreach ($list as $c) {
+            $reply .= "🔹 <b>{$c[0]}</b>\n   💼 Role: {$c[1]}\n   💰 Package: {$c[2]}\n   📋 Type: {$c[3]}\n\n";
         }
     }
 
-    // ── Step 6: Footer tip ────────────────────────────────────────────────────
+    // ── Step 7: Footer ────────────────────────────────────────────────────────
     $reply .= "━━━━━━━━━━━━━━━━━\n";
-    $reply .= "💡 <b>Try also:</b> company for BCA · company for BCOM · company for TAMIL\n";
-    $reply .= "💡 Or by stream: company for science · company for commerce · company for arts\n";
+    $reply .= "💡 Try: company for BCA · company for BCOM · company for MBA · company for ENG\n";
     $reply .= getLinks("company");
     sendReply($reply);
 }
@@ -1264,7 +1367,7 @@ if ($module === 'urgent') {
 }
 
 // ============================================================
-// DEFAULT FALLBACK — Try FAQ fuzzy match first, then show menu
+// DEFAULT FALLBACK — Try FAQ fuzzy match first, then natural reply
 // ============================================================
 $fallbackCourse = $activeCourse ? $activeCourse['short_name'] : null;
 
@@ -1292,26 +1395,10 @@ if ($bestFb && $bestScoreFb >= 1) {
     sendReply($reply);
 }
 
-$hint = $fallbackCourse
-    ? "💡 Your active course is <b>$fallbackCourse</b>. Try:\n" .
-      "gd for $fallbackCourse · hr for $fallbackCourse · coding for $fallbackCourse · ats for $fallbackCourse\n\n"
-    : "";
+// ── Simple fallback ───────────────────────────────────────────────────────────
+$courseTip = $fallbackCourse
+    ? "Try: <b>HR for $fallbackCourse</b> · <b>GD for $fallbackCourse</b> · <b>SKILLS for $fallbackCourse</b>"
+    : "First type your course (e.g. <b>BCA</b>, <b>BCOM</b>, <b>ENG</b>), then ask your question.";
 
-sendReply(
-    "🤖 <b>I didn't quite catch that.</b>\n\n" . $hint .
-    "📌 <b>Try typing:</b>\n" .
-    "• hi → Welcome & full menu\n" .
-    "• courses → All available courses\n" .
-    "• gd / gd for DS → GD Topics\n" .
-    "• hr / hr for BCA → HR Questions\n" .
-    "• mock / mock for BCOM → Mock Interview\n" .
-    "• aptitude → Practice Questions\n" .
-    "• technical → Technical Topics\n" .
-    "• coding / coding for MCA → Coding Problems\n" .
-    "• skills / skills for AI → Skills Needed\n" .
-    "• resume → Resume Tips\n" .
-    "• ats / ats for BCA → ATS Resume Checker\n" .
-    "• company / company for BBA → Hiring Companies\n\n" .
-    "🎓 <b>Or type your course:</b> BCA · MCA · CS · AI · DS · BBA · BCOM · ENG · TAMIL · VISCOM"
-);
+sendReply("😊 Sorry, I didn't understand that.\n\n" . $courseTip . "\n\nType <b>hi</b> to see all options.");
 ?>
