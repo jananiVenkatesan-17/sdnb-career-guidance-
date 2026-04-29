@@ -2352,3 +2352,61 @@ INSERT INTO companies (company_name, role, salary, type, stream) VALUES
 -- ============================================================
 -- DONE — 15 new courses inserted with full module data
 -- ============================================================
+-- ============================================================
+-- PATCH: Add course_id to companies table
+-- Run this in phpMyAdmin → SQL tab
+-- ============================================================
+
+-- Step 1: Add course_id column
+ALTER TABLE `companies`
+  ADD COLUMN `course_id` INT DEFAULT NULL AFTER `id`,
+  ADD INDEX `idx_course_id` (`course_id`);
+
+-- Step 2: Link each company to its course via short_name
+-- This uses a subquery to find the course_id from the courses table
+
+-- ── CS / TECH courses ────────────────────────────────────────
+UPDATE companies SET course_id = (SELECT course_id FROM courses WHERE short_name = 'CS'    LIMIT 1) WHERE company_name IN ('TCS','Infosys','Wipro','Cognizant','HCL Technologies','Accenture','Capgemini','Tech Mahindra') AND stream = 'science' AND course_id IS NULL;
+
+UPDATE companies SET course_id = (SELECT course_id FROM courses WHERE short_name = 'AI'    LIMIT 1) WHERE company_name IN ('Google India','Amazon','Wipro AI360') AND stream = 'science' AND course_id IS NULL;
+
+UPDATE companies SET course_id = (SELECT course_id FROM courses WHERE short_name = 'MSDAI' LIMIT 1) WHERE company_name IN ('Google India','Amazon','Wipro AI360') AND course_id IS NULL;
+
+UPDATE companies SET course_id = (SELECT course_id FROM courses WHERE short_name = 'DS'    LIMIT 1) WHERE company_name IN ('Mu Sigma','Fractal Analytics','Latent View Analytics') AND stream = 'science' AND course_id IS NULL;
+
+UPDATE companies SET course_id = (SELECT course_id FROM courses WHERE short_name = 'STATS' LIMIT 1) WHERE company_name IN ('Mu Sigma','Fractal Analytics','Latent View Analytics') AND course_id IS NULL;
+
+UPDATE companies SET course_id = (SELECT course_id FROM courses WHERE short_name = 'PBPB'  LIMIT 1) WHERE company_name IN ('Biocon','Syngenta India','National Seeds Corporation') AND course_id IS NULL;
+
+UPDATE companies SET course_id = (SELECT course_id FROM courses WHERE short_name = 'MSPB'  LIMIT 1) WHERE company_name IN ('Biocon','Syngenta India','National Seeds Corporation') AND course_id IS NULL;
+
+UPDATE companies SET course_id = (SELECT course_id FROM courses WHERE short_name = 'MSBIO' LIMIT 1) WHERE company_name IN ('IQVIA','Parexel','Quintiles') AND course_id IS NULL;
+
+UPDATE companies SET course_id = (SELECT course_id FROM courses WHERE short_name = 'MSCHEM' LIMIT 1) WHERE company_name IN ('Cipla','Dr. Reddy''s Laboratories','Sun Pharma') AND course_id IS NULL;
+
+UPDATE companies SET course_id = (SELECT course_id FROM courses WHERE short_name = 'MSHSN' LIMIT 1) WHERE company_name IN ('Apollo Hospitals','Nestlé India','ITC Foods') AND course_id IS NULL;
+
+UPDATE companies SET course_id = (SELECT course_id FROM courses WHERE short_name = 'MSCP'  LIMIT 1) WHERE company_name IN ('Vandrevala Foundation','iCall (TISS)','Apollo Hospitals') AND course_id IS NULL;
+
+-- ── Commerce courses ─────────────────────────────────────────
+UPDATE companies SET course_id = (SELECT course_id FROM courses WHERE short_name = 'BCOM'  LIMIT 1) WHERE company_name IN ('Deloitte','HDFC Bank','ICICI Bank','Axis Bank','KPMG','EY','PwC','Infosys BPO','Bajaj Finserv','Gartner') AND stream = 'commerce' AND course_id IS NULL;
+
+UPDATE companies SET course_id = (SELECT course_id FROM courses WHERE short_name = 'BBA'   LIMIT 1) WHERE company_name IN ('Amazon','Flipkart','McKinsey & Company','Hindustan Unilever') AND stream = 'commerce' AND course_id IS NULL;
+
+UPDATE companies SET course_id = (SELECT course_id FROM courses WHERE short_name = 'MAHRM' LIMIT 1) WHERE company_name IN ('Deloitte','Amazon','Infosys BPO') AND stream = 'commerce' AND course_id IS NULL;
+
+UPDATE companies SET course_id = (SELECT course_id FROM courses WHERE short_name = 'MCOMAF' LIMIT 1) WHERE company_name IN ('Deloitte','EY','KPMG') AND stream = 'commerce' AND course_id IS NULL;
+
+UPDATE companies SET course_id = (SELECT course_id FROM courses WHERE short_name = 'MBA'   LIMIT 1) WHERE company_name IN ('McKinsey & Company','Hindustan Unilever','Amazon India','HDFC Bank') AND course_id IS NULL;
+
+-- ── Arts courses ─────────────────────────────────────────────
+UPDATE companies SET course_id = (SELECT course_id FROM courses WHERE short_name = 'ENG'   LIMIT 1) WHERE company_name IN ('Concentrix','Sutherland','EY','Times of India') AND stream = 'arts' AND course_id IS NULL;
+
+UPDATE companies SET course_id = (SELECT course_id FROM courses WHERE short_name = 'TOURISM' LIMIT 1) WHERE company_name IN ('MakeMyTrip','Thomas Cook') AND course_id IS NULL;
+
+UPDATE companies SET course_id = (SELECT course_id FROM courses WHERE short_name = 'MSW'   LIMIT 1) WHERE company_name IN ('CRY India','UNICEF India','Aga Khan Foundation') AND course_id IS NULL;
+
+UPDATE companies SET course_id = (SELECT course_id FROM courses WHERE short_name = 'MAECO' LIMIT 1) WHERE company_name IN ('NITI Aayog','RBI','McKinsey & Company') AND course_id IS NULL;
+
+-- ── Science fallback — general IT companies linked to BCA/MCA ─
+UPDATE companies SET course_id = (SELECT course_id FROM courses WHERE short_name = 'BCA'   LIMIT 1) WHERE stream = 'science' AND course_id IS NULL AND company_name IN ('TCS','Infosys','Wipro','Cognizant','HCL Technologies','Accenture','Capgemini','Tech Mahindra','Freshworks','IBM');
